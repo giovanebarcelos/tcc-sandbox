@@ -1,0 +1,16 @@
+%% TCC25-TresEnderecos.mmd | Aula 25
+%% Código de três endereços (TAC) e pipeline de geração/otimização
+@startmermaid
+flowchart LR
+    A["AST"] --> G["CodeGenVisitor"]
+    G --> T["TAC<br/>(3 endereços)"]
+    T --> O["Otimizador"]
+    O --> T2["TAC otimizado"]
+    T2 --> C["Gerador C"]
+    C --> E["Código C"]
+    E --> CC["gcc"]
+    CC --> EX["Executável"]
+    style G fill:#a8d8ea
+    style O fill:#d4edda
+    style C fill:#a8d8ea
+@endmermaid

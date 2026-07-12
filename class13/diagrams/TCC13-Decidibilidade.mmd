@@ -1,0 +1,19 @@
+%% TCC13-Decidibilidade.mmd | Aula 13
+%% Hierarquia de decidibilidade e o problema da parada
+@startmermaid
+flowchart TD
+    A["Problema computacional"] --> B{"É decidível?"}
+    B -- "Sim: MT sempre para" --> C["DECIDÍVEL"]
+    B -- "Não: MT pode loopar" --> D["INDECIDÍVEL"]
+    C --> E["Ex.: aⁿbⁿ, palíndromos, paridade"]
+    D --> F["Ex.: Problema da Parada"]
+    D --> G["Ex.: Equivalência de MTs"]
+    F --> H["Argumento de Turing:"]
+    H --> I["Suponha decisor H(P,x)"]
+    I --> J["Construa D(x): se H(x,x) loopa, senão para"]
+    J --> K["H(D,D)? Contradição!"]
+    K --> L["∴ Parada é indecidível"]
+    style D fill:#ffcccc
+    style F fill:#ffcccc
+    style L fill:#ffcccc
+@endmermaid

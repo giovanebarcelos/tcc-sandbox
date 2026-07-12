@@ -1,0 +1,74 @@
+' TCC23-ClassesAST.puml | Aula 23
+' Diagrama de classes da AST com Visitor e Factory (SOLID) — versão PlantUML
+@startuml
+skinparam class {
+    BackgroundColor #F0F4F8
+    BorderColor #2563EB
+    ArrowColor #334155
+}
+
+abstract class No {
+    + aceitar(Visitor) : Object
+}
+
+class NumNode {
+    + double valor
+    + aceitar(Visitor) : Object
+}
+
+class VarNode {
+    + String nome
+    + aceitar(Visitor) : Object
+}
+
+class BinOpNode {
+    + String op
+    + No esq
+    + No dir
+    + aceitar(Visitor) : Object
+}
+
+class AssignNode {
+    + String nome
+    + No expr
+    + aceitar(Visitor) : Object
+}
+
+class PrintNode {
+    + No expr
+    + aceitar(Visitor) : Object
+}
+
+class NoFactory {
+    + {static} num(double) : NumNode
+    + {static} var(String) : VarNode
+    + {static} binop(String, No, No) : BinOpNode
+    + {static} assign(String, No) : AssignNode
+    + {static} print(No) : PrintNode
+}
+
+abstract class Visitor {
+    + visitarNum(NumNode) : Object
+    + visitarVar(VarNode) : Object
+    + visitarBinOp(BinOpNode) : Object
+    + visitarAssign(AssignNode) : Object
+    + visitarPrint(PrintNode) : Object
+}
+
+class EvalVisitor {
+    + Map tabela
+}
+
+class PrintVisitor {
+}
+
+No <|-- NumNode
+No <|-- VarNode
+No <|-- BinOpNode
+No <|-- AssignNode
+No <|-- PrintNode
+Visitor <|-- EvalVisitor
+Visitor <|-- PrintVisitor
+NoFactory ..> No : cria
+No ..> Visitor : aceitar
+@enduml

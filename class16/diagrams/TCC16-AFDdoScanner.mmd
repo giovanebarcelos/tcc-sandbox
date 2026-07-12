@@ -1,0 +1,21 @@
+%% TCC16-AFDdoScanner.mmd | Aula 16
+%% O scanner como AFD: estados de reconhecimento de tokens
+@startmermaid
+stateDiagram-v2
+    [*] --> Inicio
+    Inicio --> Num: dígito
+    Inicio --> Id: letra/_
+    Inicio --> Op: + - * / =
+    Inicio --> Punct: ( ) { } ;
+    Inicio --> Comentario: #
+    Inicio --> Inicio: espaço
+    Num --> Num: dígito
+    Num --> Inicio: outro → emite NUM
+    Id --> Id: letra/dígito/_
+    Id --> Inicio: outro → emite ID/KEYWORD
+    Op --> Inicio: emite OP
+    Punct --> Inicio: emite PUNCT
+    Comentario --> Comentario: não-\n
+    Comentario --> Inicio: \n
+    Inicio --> [*]: EOF
+@endmermaid

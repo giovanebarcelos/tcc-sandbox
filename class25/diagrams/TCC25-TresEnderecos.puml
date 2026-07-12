@@ -1,0 +1,30 @@
+' TCC25-TresEnderecos.puml | Aula 25
+' Código de três endereços (TAC) e pipeline de geração/otimização — versão PlantUML
+@startuml
+skinparam rectangle {
+    BackgroundColor #F0F4F8
+    BorderColor #2563EB
+}
+skinparam arrow {
+    Color #334155
+}
+
+rectangle "AST" as A
+rectangle "CodeGenVisitor" as G #A8D8EA
+rectangle "TAC\n(3 endereços)" as T
+rectangle "Otimizador" as O #D4EDDA
+rectangle "TAC otimizado" as T2
+rectangle "Gerador C" as C #A8D8EA
+rectangle "Código C" as E
+rectangle "gcc" as CC
+rectangle "Executável" as EX
+
+A --> G
+G --> T
+T --> O
+O --> T2
+T2 --> C
+C --> E
+E --> CC
+CC --> EX
+@enduml

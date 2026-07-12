@@ -1,0 +1,13 @@
+%% TCC02-Derivacao.mmd | Aula 02 - Derivação de "243" na gramática dos números naturais
+%% G = (V, T, P, S)  V={N,D}  T={0..9}  S=N
+%% (1) N -> D   (2) N -> DN   (3) D -> 0|1|...|9
+graph TD
+    A["N"] -->|"(2) N -> DN"| B["DN"]
+    B -->|"(3) D -> 2"| C["2N"]
+    C -->|"(2) N -> DN"| D["2DN"]
+    D -->|"(3) D -> 4"| E["24N"]
+    E -->|"(1) N -> D"| F["24D"]
+    F -->|"(3) D -> 3"| G["243"]
+
+    style A fill:#EFF6FF,stroke:#2563EB,stroke-width:2px
+    style G fill:#ECFDF5,stroke:#059669,stroke-width:2px

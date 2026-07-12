@@ -1,0 +1,32 @@
+' TCC13-Decidibilidade.puml | Aula 13
+' Hierarquia de decidibilidade e o problema da parada — versão PlantUML
+@startuml
+skinparam rectangle {
+    BackgroundColor #F0F4F8
+    BorderColor #2563EB
+}
+skinparam arrow {
+    Color #334155
+}
+
+rectangle "Problema computacional" as A
+rectangle "É decidível?" as B
+rectangle "DECIDÍVEL\nMT sempre para\nEx.: aⁿbⁿ, palíndromos, paridade" as C #D6FFD6
+rectangle "INDECIDÍVEL\nMT pode loopar\nEx.: Problema da Parada\nEx.: Equivalência de MTs" as D #FFD6D6
+
+A --> B
+B --> C : "Sim: MT sempre para"
+B --> D : "Não: MT pode loopar"
+
+rectangle "Argumento de Turing:" as H #FFE6CC
+rectangle "Suponha decisor H(P,x)" as I
+rectangle "Construa D(x): se H(x,x) loopa, senão para" as J
+rectangle "H(D,D)? Contradição!" as K #FFCCCC
+rectangle "∴ Parada é indecidível" as L #FFCCCC
+
+H --> I
+I --> J
+J --> K
+K --> L
+D --> H
+@enduml

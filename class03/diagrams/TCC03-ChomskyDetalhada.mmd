@@ -1,0 +1,40 @@
+@startmermaid
+flowchart TD
+    subgraph TIPO0["TIPO 0 — IRRESTRITA"]
+        T0["Gramática sem restrições"]
+        MT["Máquina de Turing"]
+    end
+
+    subgraph TIPO1["TIPO 1 — SENSÍVEL AO CONTEXTO"]
+        T1["α → β | |α| ≤ |β|"]
+        LLBA["Autômato Linearmente Limitado"]
+    end
+
+    subgraph TIPO2["TIPO 2 — LIVRE DE CONTEXTO"]
+        T2["A → β | A ∈ V"]
+        AP["Autômato de Pilha"]
+    end
+
+    subgraph TIPO3["TIPO 3 — REGULAR"]
+        T3["A → aB | a | ε"]
+        AF["Autômato Finito (AFD/AFN)"]
+        ER["Expressão Regular"]
+        GR["Gramática Regular"]
+    end
+
+    TIPO3 -->|"⊂ está contido em"| TIPO2
+    TIPO2 -->|"⊂ está contido em"| TIPO1
+    TIPO1 -->|"⊂ está contido em"| TIPO0
+
+    T0 -.->|"reconhece"| MT
+    T1 -.->|"reconhece"| LLBA
+    T2 -.->|"reconhece"| AP
+    T3 -.->|"reconhece"| AF
+    T3 -.->|"equivalente a"| ER
+    T3 -.->|"equivalente a"| GR
+
+    style TIPO0 fill:#F3E8FF,stroke:#7C3AED,stroke-width:3px
+    style TIPO1 fill:#FEE2E2,stroke:#DC2626,stroke-width:3px
+    style TIPO2 fill:#FED7AA,stroke:#EA580C,stroke-width:3px
+    style TIPO3 fill:#D1FAE5,stroke:#059669,stroke-width:3px
+@endmermaid

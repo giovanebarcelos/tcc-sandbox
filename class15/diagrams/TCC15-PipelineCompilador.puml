@@ -1,0 +1,32 @@
+' TCC15-PipelineCompilador.puml | Aula 15
+' Pipeline das 6 fases de um compilador — versão PlantUML
+@startuml
+skinparam rectangle {
+    BackgroundColor #F0F4F8
+    BorderColor #2563EB
+}
+skinparam arrow {
+    Color #334155
+}
+
+rectangle "Fonte\n(código)" as F
+rectangle "1. Léxica\n(Scanner)" as L #A8D8EA
+rectangle "Tokens" as T
+rectangle "2. Sintática\n(Parser)" as S #A8D8EA
+rectangle "AST" as A
+rectangle "3. Semântica\n(Tab. Símbolos)" as SEM #A8D8EA
+rectangle "4. Intermediário\n(TAC)" as I #A8D8EA
+rectangle "5. Otimização" as O #A8D8EA
+rectangle "6. Geração\n(código final)" as G #A8D8EA
+rectangle "Executável" as E
+
+F --> L
+L --> T
+T --> S
+S --> A
+A --> SEM
+SEM --> I
+I --> O
+O --> G
+G --> E
+@enduml

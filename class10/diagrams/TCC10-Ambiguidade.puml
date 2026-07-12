@@ -1,0 +1,59 @@
+' TCC10-Ambiguidade.puml | Aula 10
+' Ambiguidade da gramática E → E+E | E*E | (E) | id — versão PlantUML
+@startuml
+skinparam node {
+    BackgroundColor #F0F4F8
+    BorderColor #2563EB
+}
+skinparam arrow {
+    Color #334155
+}
+
+package "Árvore A: (id*id)+id — agrupamento à esquerda" {
+    node "E" as A1
+    node "E" as A2
+    node "+" as A3 #FFCCCC
+    node "E" as A4
+    node "E" as A5
+    node "*" as A6
+    node "E" as A7
+    node "id" as A8
+    node "id" as A9
+    node "id" as A10
+
+    A1 --> A2
+    A1 --> A3
+    A1 --> A4
+    A2 --> A5
+    A2 --> A6
+    A2 --> A7
+    A5 --> A8
+    A7 --> A9
+    A4 --> A10
+}
+
+package "Árvore B: id*(id+id) — agrupamento à direita" {
+    node "E" as B1
+    node "E" as B2
+    node "*" as B3
+    node "E" as B4
+    node "id" as B5
+    node "E" as B6
+    node "+" as B7 #FFCCCC
+    node "E" as B8
+    node "id" as B9
+    node "id" as B10
+
+    B1 --> B2
+    B1 --> B3
+    B1 --> B4
+    B2 --> B5
+    B4 --> B6
+    B4 --> B7
+    B4 --> B8
+    B6 --> B9
+    B8 --> B10
+}
+
+note bottom : Ambas derivam "id*id+id" com estruturas diferentes\n→ Gramática AMBÍGUA
+@enduml

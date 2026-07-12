@@ -1,0 +1,23 @@
+' TCC02-Derivacao.puml | Aula 02
+' Derivação de uma gramática — versão PlantUML
+@startuml
+skinparam node {
+    BackgroundColor #F0F4F8
+    BorderColor #2563EB
+}
+skinparam arrow {
+    Color #334155
+}
+node "S" as S
+node "aSb" as S1
+node "aaSbb" as S2
+node "aaaSbbb" as S3
+node "aaabbb" as S4
+
+S --> S1 : "⇒ (aplicar S→aSb)"
+S1 --> S2 : "⇒ (aplicar S→aSb)"
+S2 --> S3 : "⇒ (aplicar S→aSb)"
+S3 --> S4 : "⇒ (aplicar S→ε)"
+
+note bottom of S4 : Palavra final: a³b³
+@enduml

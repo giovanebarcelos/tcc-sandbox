@@ -1,0 +1,37 @@
+// TCC2101-Calc.cup | Aula 21
+// Parser JCup (CUP) para a calculadora.
+// Build: java -jar java-cup-11b.jar TCC2101-Calc.cup
+package tcc;
+
+import java_cup.runtime.*;
+
+parser code {:
+    public static void main(String[] args) throws Exception {
+        CalcLexer lexer = new CalcLexer(new java.io.FileReader(args[0]));
+        parser p = new parser(lexer);
+        Double result = (Double) p.parse().value;
+        System.out.println("Resultado: " + result);
+    }
+:}
+
+terminal PLUS, MINUS, TIMES, DIV, LPAREN, RPAREN, SEMI;
+terminal Double NUM;
+
+non terminal Double expr, term, factor;
+
+precedence left PLUS, MINUS;
+precedence left TIMES, DIV;
+
+expr ::= expr:e1 PLUS term:e2 {: RESULT = e1 + e2; :}
+       | expr:e1 MINUS term:e2 {: RESULT = e1 - e2; :}
+       | term:t {: RESULT = t; :}
+       ;
+
+term ::= term:t1 TIMES factor:f {: RESULT = t1 * f; :}
+       | term:t1 DIV factor:f   {: RESULT = t1 / f; :}
+       | factor:f               {: RESULT = f; :}
+       ;
+
+factor ::= LPAREN expr:e RPAREN {: RESULT = e; :}
+         | NUM:n                {: RESULT = n; :}
+         ;

@@ -1,0 +1,24 @@
+' TCC01-HierarquiaChomsky.puml | Aula 01
+' Hierarquia de Chomsky — versão PlantUML do .mmd
+' Visualizar em https://plantuml.com/ (ou extensão VS Code PlantUML)
+@startuml
+skinparam rectangle {
+    BackgroundColor #F0F4F8
+    BorderColor #2563EB
+}
+rectangle "Tipo 0\nRecursivamente Enumerável" as T0 #FFD6D6
+rectangle "Tipo 1\nSensível ao Contexto" as T1 #FFE6CC
+rectangle "Tipo 2\nLivre de Contexto" as T2 #FFFFCC
+rectangle "Tipo 3\nRegular" as T3 #D6FFD6
+
+T3 -[hidden]right-> T2
+T2 -[hidden]right-> T1
+T1 -[hidden]right-> T0
+
+note bottom of T3 : AFD, AFN, ER\nGramáticas Regulares
+note bottom of T2 : Autômato de Pilha\nGramáticas Livres de Contexto
+note bottom of T1 : Máquina de Turing Linear\nLimitada
+note bottom of T0 : Máquina de Turing\nSem restrições
+
+label "Cada nível inclui o anterior\n(Tipo 3 ⊂ Tipo 2 ⊂ Tipo 1 ⊂ Tipo 0)" as H
+@enduml

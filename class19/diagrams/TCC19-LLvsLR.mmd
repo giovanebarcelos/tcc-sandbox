@@ -1,0 +1,21 @@
+%% TCC19-LLvsLR.mmd | Aula 19
+%% Comparação LL (top-down) vs LR (bottom-up)
+@startmermaid
+flowchart TB
+    subgraph LL["Análise LL (Top-Down)"]
+        direction TB
+        LL1["Raiz da árvore"] --> LL2["Aplica produção"]
+        LL2 --> LL3["Desce para filhos"]
+        LL3 --> LL4["Prediz produção antes de ver tokens"]
+    end
+    subgraph LR["Análise LR (Bottom-Up)"]
+        direction TB
+        LR1["Folhas (tokens)"] --> LR2["Empilha (shift)"]
+        LR2 --> LR3["Reduz quando casa produção"]
+        LR3 --> LR4["Sobe até a raiz"]
+    end
+    LL --> C["LL(1): tabela preditiva<br/>recursivo descendente"]
+    LR --> D["SLR/LALR/LR(1):<br/>tabela shift-reduce"]
+    style LL fill:#d4edda
+    style LR fill:#cce5ff
+@endmermaid

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- TCC0203-NumerosNaturais.jff | Aula 02 - Gramática dos números naturais: N -> D | DN ; D -> 0|1|...|9 -->
+<structure>
+	<type>grammar</type>
+	<production>
+		<left>N</left>
+		<right>D</right>
+	</production>
+	<production>
+		<left>N</left>
+		<right>DN</right>
+	</production>
+	<production>
+		<left>D</left>
+		<right>0</right>
+	</production>
+	<production>
+		<left>D</left>
+		<right>1</right>
+	</production>
+	<production>
+		<left>D</left>
+		<right>2</right>
+	</production>
+	<production>
+		<left>D</left>
+		<right>3</right>
+	</production>
+	<production>
+		<left>D</left>
+		<right>4</right>
+	</production>
+	<production>
+		<left>D</left>
+		<right>5</right>
+	</production>
+	<production>
+		<left>D</left>
+		<right>6</right>
+	</production>
+	<production>
+		<left>D</left>
+		<right>7</right>
+	</production>
+	<production>
+		<left>D</left>
+		<right>8</right>
+	</production>
+	<production>
+		<left>D</left>
+		<right>9</right>
+	</production>
+</structure>

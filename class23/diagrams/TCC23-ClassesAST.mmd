@@ -1,0 +1,61 @@
+%% TCC23-ClassesAST.mmd | Aula 23
+%% Diagrama de classes da AST com Visitor e Factory (SOLID)
+@startmermaid
+classDiagram
+    class No {
+        <<abstract>>
+        +aceitar(Visitor) Object
+    }
+    class NumNode {
+        +double valor
+        +aceitar(Visitor) Object
+    }
+    class VarNode {
+        +String nome
+        +aceitar(Visitor) Object
+    }
+    class BinOpNode {
+        +String op
+        +No esq
+        +No dir
+        +aceitar(Visitor) Object
+    }
+    class AssignNode {
+        +String nome
+        +No expr
+        +aceitar(Visitor) Object
+    }
+    class PrintNode {
+        +No expr
+        +aceitar(Visitor) Object
+    }
+    class NoFactory {
+        +num(double) NumNode
+        +var(String) VarNode
+        +binop(String,No,No) BinOpNode
+        +assign(String,No) AssignNode
+        +print(No) PrintNode
+    }
+    class Visitor {
+        <<abstract>>
+        +visitarNum(NumNode) Object
+        +visitarVar(VarNode) Object
+        +visitarBinOp(BinOpNode) Object
+        +visitarAssign(AssignNode) Object
+        +visitarPrint(PrintNode) Object
+    }
+    class EvalVisitor {
+        +Map tabela
+    }
+    class PrintVisitor {
+    }
+    No <|-- NumNode
+    No <|-- VarNode
+    No <|-- BinOpNode
+    No <|-- AssignNode
+    No <|-- PrintNode
+    Visitor <|-- EvalVisitor
+    Visitor <|-- PrintVisitor
+    NoFactory ..> No : cria
+    No ..> Visitor : aceitar
+@endmermaid

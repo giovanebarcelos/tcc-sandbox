@@ -1,0 +1,30 @@
+%% TCC10-Ambiguidade.mmd | Aula 10
+%% Demonstra ambiguidade da gramática E → E+E | E*E | (E) | id
+%% Duas árvores de derivação para a mesma palavra "id*id+id"
+@startmermaid
+flowchart TD
+    subgraph Árvore_A["Árvore A: (id*id)+id — agrupamento à esquerda"]
+        A1["E"] --> A2["E"]
+        A1 --> A3["+"]
+        A1 --> A4["E"]
+        A2 --> A5["E"]
+        A2 --> A6["*"]
+        A2 --> A7["E"]
+        A5 --> A8["id"]
+        A7 --> A9["id"]
+        A4 --> A10["id"]
+    end
+    subgraph Árvore_B["Árvore B: id*(id+id) — agrupamento à direita"]
+        B1["E"] --> B2["E"]
+        B1 --> B3["*"]
+        B1 --> B4["E"]
+        B2 --> B5["id"]
+        B4 --> B6["E"]
+        B4 --> B7["+"]
+        B4 --> B8["E"]
+        B6 --> B9["id"]
+        B8 --> B10["id"]
+    end
+    style A3 fill:#ffcccc
+    style B7 fill:#ffcccc
+@endmermaid

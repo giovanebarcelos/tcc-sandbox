@@ -1,0 +1,37 @@
+' TCC19-LLvsLR.puml | Aula 19
+' Comparação LL (top-down) vs LR (bottom-up) — versão PlantUML
+@startuml
+skinparam rectangle {
+    BackgroundColor #F0F4F8
+    BorderColor #2563EB
+}
+skinparam arrow {
+    Color #334155
+}
+
+package "Análise LL (Top-Down)" as LL #D4EDDA {
+    rectangle "Raiz da árvore" as LL1
+    rectangle "Aplica produção" as LL2
+    rectangle "Desce para filhos" as LL3
+    rectangle "Prediz produção\nantes de ver tokens" as LL4
+    LL1 --> LL2
+    LL2 --> LL3
+    LL3 --> LL4
+}
+
+package "Análise LR (Bottom-Up)" as LR #CCE5FF {
+    rectangle "Folhas (tokens)" as LR1
+    rectangle "Empilha (shift)" as LR2
+    rectangle "Reduz quando casa\nprodução" as LR3
+    rectangle "Sobe até a raiz" as LR4
+    LR1 --> LR2
+    LR2 --> LR3
+    LR3 --> LR4
+}
+
+rectangle "LL(1): tabela preditiva\nrecursivo descendente" as C
+rectangle "SLR/LALR/LR(1):\ntabela shift-reduce" as D
+
+LL --> C
+LR --> D
+@enduml

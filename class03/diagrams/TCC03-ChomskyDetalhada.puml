@@ -1,0 +1,21 @@
+' TCC03-ChomskyDetalhada.puml | Aula 03
+' Hierarquia de Chomsky detalhada — versão PlantUML
+@startuml
+skinparam rectangle {
+    BackgroundColor #F0F4F8
+    BorderColor #2563EB
+}
+rectangle "Tipo 0: Recursivamente Enumerável\nG: α → β (sem restrição)\nMT (sem restrição)" as T0 #FFD6D6
+rectangle "Tipo 1: Sensível ao Contexto\nG: α → β onde |α| ≤ |β|\nMT Linear Limitada (LBA)" as T1 #FFE6CC
+rectangle "Tipo 2: Livre de Contexto\nG: A → β (um não-terminal)\nAutômato de Pilha (AP)" as T2 #FFFFCC
+rectangle "Tipo 3: Regular\nG: A → aB | a (linear)\nAFD, AFN, Expressão Regular" as T3 #D6FFD6
+
+T3 -[hidden]right-> T2
+T2 -[hidden]right-> T1
+T1 -[hidden]right-> T0
+
+note bottom of T3 : a*b*, (a|b)*, par de 1s
+note bottom of T2 : aⁿbⁿ, palíndromos, expr
+note bottom of T1 : aⁿbⁿcⁿ, cópia
+note bottom of T0 : Qualquer linguagem computável
+@enduml

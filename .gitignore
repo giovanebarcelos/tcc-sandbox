@@ -1,0 +1,27 @@
+# Compiled Java classes
+*.class
+
+# Python cache
+__pycache__/
+*.pyc
+
+# ANTLR generated files (regenerated from .g4)
+*.interp
+*.tokens
+*Lexer.java
+*Parser.java
+*BaseListener.java
+*BaseVisitor.java
+*Listener.java
+*Visitor.java
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Copyrighted material — do not re-add
+livros/HotMart - Curso de Compiladores.pdf

@@ -1,0 +1,20 @@
+%% TCC15-PipelineCompilador.mmd | Aula 15
+%% Pipeline das 6 fases de um compilador
+@startmermaid
+flowchart LR
+    F["Fonte<br/>(código)"] --> L["1. Léxica<br/>(Scanner)"]
+    L --> T["Tokens"]
+    T --> S["2. Sintática<br/>(Parser)"]
+    S --> A["AST"]
+    A --> SEM["3. Semântica<br/>(Tab. Símbolos)"]
+    SEM --> I["4. Intermediário<br/>(TAC)"]
+    I --> O["5. Otimização"]
+    O --> G["6. Geração<br/>(código final)"]
+    G --> E["Executável"]
+    style L fill:#a8d8ea
+    style S fill:#a8d8ea
+    style SEM fill:#a8d8ea
+    style I fill:#a8d8ea
+    style O fill:#a8d8ea
+    style G fill:#a8d8ea
+@endmermaid
