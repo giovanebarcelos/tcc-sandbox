@@ -1,0 +1,12 @@
+automaton EvenAs {
+    states: par, impar;
+    alphabet: a, b;
+    initial: par;
+    final: par;
+    transitions: {
+        par, a -> impar;
+        par, b -> par;
+        impar, a -> par;
+        impar, b -> impar;
+    }
+} end

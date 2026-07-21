@@ -1,0 +1,121 @@
+/* Parser.cup - Analisador Sintático */
+
+import java_cup.runtime.*;
+
+parser code {:
+    public void report_error(String message, Object info) {
+        StringBuilder m = new StringBuilder("ERRO SINTÁTICO");
+        
+        if (info instanceof Symbol) {
+            Symbol s = (Symbol) info;
+            if (s.left >= 0) {
+                m.append(" na linha " + s.left);
+                if (s.right >= 0)
+                    m.append(", coluna " + s.right);
+            }
+            if (s.value != null) {
+                m.append(": token inesperado '" + s.value + "'");
+            }
+        }
+        m.append(" - " + message);
+        System.err.println(m);
+    }
+   
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+:};
+
+/* Terminais */
+terminal PROGRAM, BEGIN, END, INT, FLOAT;
+terminal IF, THEN, ELSE, WHILE, DO;
+terminal READ, WRITE;
+terminal PLUS, MINUS, TIMES, DIVIDE;
+terminal ASSIGN, EQ, NEQ, LT, GT, LE, GE;
+terminal LPAREN, RPAREN, LBRACE, RBRACE;
+terminal SEMI, COMMA;
+terminal String ID;
+terminal Integer NUMBER;
+
+/* Não-terminais */
+non terminal program;
+non terminal decl_list, decl;
+non terminal stmt_list, stmt, matched_stmt, unmatched_stmt;
+non terminal expr, term, factor;
+non terminal type;
+non terminal id_list;
+non terminal condition;
+
+/* Precedência e associatividade */
+precedence nonassoc ELSE;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+precedence nonassoc EQ, NEQ, LT, GT, LE, GE;
+
+/* Gramática */
+start with program;
+
+program ::= PROGRAM ID SEMI decl_list BEGIN stmt_list END
+            {: System.out.println("Programa compilado com sucesso!"); :}
+          ;
+
+decl_list ::= decl_list decl
+            | /* vazio */
+            ;
+
+decl ::= type id_list SEMI
+       ;
+
+type ::= INT
+       | FLOAT
+       ;
+
+id_list ::= id_list COMMA ID
+          | ID
+          ;
+
+stmt_list ::= stmt_list stmt
+            | stmt
+            ;
+
+stmt ::= matched_stmt
+       | unmatched_stmt
+       ;
+
+matched_stmt ::= ID ASSIGN expr SEMI
+               | IF condition THEN matched_stmt ELSE matched_stmt
+               | WHILE condition DO matched_stmt
+               | LBRACE stmt_list RBRACE
+               | READ LPAREN ID RPAREN SEMI
+               | WRITE LPAREN expr RPAREN SEMI
+               ;
+
+unmatched_stmt ::= IF condition THEN stmt
+                 | IF condition THEN matched_stmt ELSE unmatched_stmt
+                 | WHILE condition DO unmatched_stmt
+                 ;
+
+condition ::= expr EQ expr
+            | expr NEQ expr
+            | expr LT expr
+            | expr GT expr
+            | expr LE expr
+            | expr GE expr
+            ;
+
+expr ::= expr PLUS term
+       | expr MINUS term
+       | term
+       ;
+
+term ::= term TIMES factor
+       | term DIVIDE factor
+       | factor
+       ;
+
+factor ::= LPAREN expr RPAREN
+         | ID
+         | NUMBER
+         | MINUS factor
+         ;

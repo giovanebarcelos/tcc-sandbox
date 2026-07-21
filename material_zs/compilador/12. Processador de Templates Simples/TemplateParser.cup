@@ -1,0 +1,41 @@
+import java_cup.runtime.*;
+import java.util.*;
+
+parser code {:
+    public void syntax_error(Symbol cur_token) {
+        String tokenValue = cur_token.value == null ? cur_token.sym == sym.EOF ? "EOF" : sym.terminalNames[cur_token.sym] : cur_token.value.toString();
+        report_error("Erro sintático na linha " + cur_token.left +
+                    ", coluna " + cur_token.right +
+                    ": token inesperado '" + tokenValue + "'", null);
+    }
+
+    public void report_error(String message, Object info) {
+        System.err.println(message);
+    }
+:}
+
+terminal VAR_OPEN, VAR_CLOSE, CTL_OPEN, CTL_CLOSE, IF, ELSE, ENDIF;
+terminal String IDENT, TEXT;
+
+non terminal Template template;
+non terminal List<TemplateNode> sections;
+non terminal TemplateNode section, if_block;
+
+start with template;
+
+template ::= sections:sl {: RESULT = new Template(sl); :};
+
+sections ::= sections:sl section:s {: sl.add(s); RESULT = sl; :}
+           | section:s {: List<TemplateNode> list = new ArrayList<>(); list.add(s); RESULT = list; :}
+           ;
+
+section ::= TEXT:t {: RESULT = new TextNode(t); :}
+                    | VAR_OPEN IDENT:id VAR_CLOSE {: RESULT = new VariableNode(id); :}
+                    | if_block:blk {: RESULT = blk; :}
+                    ;
+
+if_block ::= CTL_OPEN IF IDENT:id CTL_CLOSE sections:then_block CTL_OPEN ENDIF CTL_CLOSE
+                            {: RESULT = new IfNode(id, then_block, null); :}
+                        | CTL_OPEN IF IDENT:id CTL_CLOSE sections:then_block CTL_OPEN ELSE CTL_CLOSE sections:else_block CTL_OPEN ENDIF CTL_CLOSE
+                            {: RESULT = new IfNode(id, then_block, else_block); :}
+                        ;

@@ -1,0 +1,38 @@
+import java_cup.runtime.*;
+
+parser code {:
+    public static void main(String[] args) throws Exception {
+        ShapesLexer lexer = new ShapesLexer(new java.io.FileReader(args[0]));
+        parser p = new parser(lexer);
+        p.parse();
+    }
+:}
+
+terminal SHAPE, RECTANGLE, CIRCLE, TRIANGLE, LBRACE, RBRACE, COLON, COMMA;
+terminal WIDTH, HEIGHT, RADIUS, COLOR, POSITION;
+terminal String ID, COLORVAL;
+terminal Double NUMBER;
+
+non terminal Shapes shapes, shape_def, shape_type, properties, property;
+
+shapes ::= shape_def
+         | shapes shape_def
+         ;
+
+shape_def ::= SHAPE ID COLON shape_type LBRACE properties RBRACE;
+
+shape_type ::= RECTANGLE
+             | CIRCLE
+             | TRIANGLE
+             ;
+
+properties ::= property
+             | properties COMMA property
+             ;
+
+property ::= WIDTH COLON NUMBER
+           | HEIGHT COLON NUMBER
+           | RADIUS COLON NUMBER
+           | COLOR COLON COLORVAL
+           | POSITION COLON NUMBER COMMA NUMBER
+;

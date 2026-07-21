@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>282.0</x>
+			<y>214.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="q1">
+			<x>390.0</x>
+			<y>213.0</y>
+		</state>
+		<state id="2" name="q2">
+			<x>507.0</x>
+			<y>211.0</y>
+		</state>
+		<state id="3" name="q3">
+			<x>619.0</x>
+			<y>211.0</y>
+			<final/>
+		</state>
+		<state id="4" name="q4">
+			<x>319.0</x>
+			<y>396.0</y>
+		</state>
+		<state id="5" name="q5">
+			<x>608.0</x>
+			<y>379.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>a</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>1</to>
+			<read>a</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>3</to>
+			<read>a</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>4</to>
+			<read>b</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>5</to>
+			<read>b</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>4</to>
+			<read>b</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>4</to>
+			<read>b</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>3</to>
+			<read>a</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>1</to>
+			<read>a</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>5</to>
+			<read>b</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>4</to>
+			<read>b</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>a</read>
+		</transition>
+		<note>
+			<text>d) {w ε {a,b}* | w tem como sufixo aaa ou bb} 
+    aaa - aceita 
+    ababaaaa- aceita
+    aaaabbbb - aceita
+    aabb - aceita
+    bbbbbbaaa - aceita
+    bbbbbaabb - aceita
+    aaab - não aceita
+    bbbaa - não aceita</text>
+			<x>191.0</x>
+			<y>42.0</y>
+		</note>
+	</automaton>
+</structure>

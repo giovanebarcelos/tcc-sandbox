@@ -1,0 +1,234 @@
+import java_cup.runtime.*;
+import java.util.*;
+
+parser code {:
+    private List<String> errors = new ArrayList<>();
+    
+    public void syntax_error(Symbol cur_token) {
+        errors.add("Erro sintático na linha " + cur_token.left + 
+                   ", coluna " + cur_token.right + 
+                   ": token inesperado");
+    }
+    
+    public void report_error(String message, Object info) {
+        if (info instanceof Symbol) {
+            Symbol s = (Symbol) info;
+            errors.add("Erro na linha " + s.left + 
+                       ", coluna " + s.right + ": " + message);
+        } else {
+            errors.add("Erro: " + message);
+        }
+    }
+    
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        throw new RuntimeException("Erro fatal na análise sintática");
+    }
+    
+    public List<String> getErrors() {
+        return errors;
+    }
+:}
+
+/* Terminais */
+terminal CIRCULO, RETANGULO, TRIANGULO, QUADRADO, ELIPSE;
+terminal COR, POSICAO, RAIO, LARGURA, ALTURA, LADO, BASE;
+terminal LBRACE, RBRACE, LPAREN, RPAREN, COMMA, COLON, SEMICOLON;
+terminal Double NUMBER;
+terminal String STRING, ID;
+
+/* Não-terminais */
+non terminal programa;
+non terminal List<Forma> formas;
+non terminal Forma forma;
+non terminal List<Propriedade> propriedades;
+non terminal Propriedade propriedade;
+non terminal Posicao posicao;
+non terminal String cor_valor;
+
+/* Precedência */
+start with programa;
+
+/* Gramática */
+programa ::= formas:f
+    {: 
+        System.out.println("=== Programa compilado com sucesso! ===");
+        System.out.println("Total de formas: " + f.size());
+        for (Forma forma : f) {
+            System.out.println(forma);
+        }
+    :}
+    | error
+    {: 
+        System.err.println("Erro: programa inválido");
+    :}
+;
+
+formas ::= forma:f
+    {:
+        List<Forma> lista = new ArrayList<>();
+        lista.add(f);
+        RESULT = lista;
+    :}
+    | formas:lista forma:f
+    {:
+        lista.add(f);
+        RESULT = lista;
+    :}
+;
+
+forma ::= CIRCULO:t ID:nome LBRACE propriedades:props RBRACE
+    {:
+        Forma f = new Forma("circulo", nome, props, tleft, tright);
+        if (!f.validarCirculo()) {
+            parser.report_error("Círculo '" + nome + "' deve ter propriedade 'raio'", 
+                              new Symbol(0, tleft, tright));
+        }
+        RESULT = f;
+    :}
+    | CIRCULO:t ID:nome LBRACE RBRACE
+    {:
+        Forma f = new Forma("circulo", nome, new ArrayList<>(), tleft, tright);
+        parser.report_error("Círculo '" + nome + "' deve ter propriedade 'raio'", 
+                          new Symbol(0, tleft, tright));
+        RESULT = f;
+    :}
+    | RETANGULO:t ID:nome LBRACE propriedades:props RBRACE
+    {:
+        Forma f = new Forma("retangulo", nome, props, tleft, tright);
+        if (!f.validarRetangulo()) {
+            parser.report_error("Retângulo '" + nome + "' deve ter 'largura' e 'altura'", 
+                              new Symbol(0, tleft, tright));
+        }
+        RESULT = f;
+    :}
+    | RETANGULO:t ID:nome LBRACE RBRACE
+    {:
+        Forma f = new Forma("retangulo", nome, new ArrayList<>(), tleft, tright);
+        parser.report_error("Retângulo '" + nome + "' deve ter 'largura' e 'altura'", 
+                          new Symbol(0, tleft, tright));
+        RESULT = f;
+    :}
+    | TRIANGULO:t ID:nome LBRACE propriedades:props RBRACE
+    {:
+        Forma f = new Forma("triangulo", nome, props, tleft, tright);
+        if (!f.validarTriangulo()) {
+            parser.report_error("Triângulo '" + nome + "' deve ter 'base' e 'altura'", 
+                              new Symbol(0, tleft, tright));
+        }
+        RESULT = f;
+    :}
+    | TRIANGULO:t ID:nome LBRACE RBRACE
+    {:
+        Forma f = new Forma("triangulo", nome, new ArrayList<>(), tleft, tright);
+        parser.report_error("Triângulo '" + nome + "' deve ter 'base' e 'altura'", 
+                          new Symbol(0, tleft, tright));
+        RESULT = f;
+    :}
+    | QUADRADO:t ID:nome LBRACE propriedades:props RBRACE
+    {:
+        Forma f = new Forma("quadrado", nome, props, tleft, tright);
+        if (!f.validarQuadrado()) {
+            parser.report_error("Quadrado '" + nome + "' deve ter propriedade 'lado'", 
+                              new Symbol(0, tleft, tright));
+        }
+        RESULT = f;
+    :}
+    | QUADRADO:t ID:nome LBRACE RBRACE
+    {:
+        Forma f = new Forma("quadrado", nome, new ArrayList<>(), tleft, tright);
+        parser.report_error("Quadrado '" + nome + "' deve ter propriedade 'lado'", 
+                          new Symbol(0, tleft, tright));
+        RESULT = f;
+    :}
+    | ELIPSE:t ID:nome LBRACE propriedades:props RBRACE
+    {:
+        Forma f = new Forma("elipse", nome, props, tleft, tright);
+        if (!f.validarElipse()) {
+            parser.report_error("Elipse '" + nome + "' deve ter 'largura' e 'altura'", 
+                              new Symbol(0, tleft, tright));
+        }
+        RESULT = f;
+    :}
+    | ELIPSE:t ID:nome LBRACE RBRACE
+    {:
+        Forma f = new Forma("elipse", nome, new ArrayList<>(), tleft, tright);
+        parser.report_error("Elipse '" + nome + "' deve ter 'largura' e 'altura'", 
+                          new Symbol(0, tleft, tright));
+        RESULT = f;
+    :}
+    | error:e RBRACE
+    {:
+        parser.report_error("Definição de forma inválida", e);
+        RESULT = new Forma("erro", "erro", new ArrayList<>(), -1, -1);
+    :}
+;
+
+propriedades ::= propriedades:lista propriedade:p
+    {:
+        lista.add(p);
+        RESULT = lista;
+    :}
+    | propriedade:p
+    {:
+        List<Propriedade> lista = new ArrayList<>();
+        lista.add(p);
+        RESULT = lista;
+    :}
+;
+
+propriedade ::= COR:t COLON cor_valor:c SEMICOLON
+    {:
+        RESULT = new Propriedade("cor", c, tleft, tright);
+    :}
+    | POSICAO:t COLON posicao:p SEMICOLON
+    {:
+        RESULT = new Propriedade("posicao", p, tleft, tright);
+    :}
+    | RAIO:t COLON NUMBER:n SEMICOLON
+    {:
+        RESULT = new Propriedade("raio", n, tleft, tright);
+    :}
+    | LARGURA:t COLON NUMBER:n SEMICOLON
+    {:
+        RESULT = new Propriedade("largura", n, tleft, tright);
+    :}
+    | ALTURA:t COLON NUMBER:n SEMICOLON
+    {:
+        RESULT = new Propriedade("altura", n, tleft, tright);
+    :}
+    | LADO:t COLON NUMBER:n SEMICOLON
+    {:
+        RESULT = new Propriedade("lado", n, tleft, tright);
+    :}
+    | BASE:t COLON NUMBER:n SEMICOLON
+    {:
+        RESULT = new Propriedade("base", n, tleft, tright);
+    :}
+    | error:e SEMICOLON
+    {:
+        parser.report_error("Propriedade inválida", e);
+        RESULT = new Propriedade("erro", null, -1, -1);
+    :}
+;
+
+posicao ::= LPAREN NUMBER:x COMMA NUMBER:y RPAREN
+    {:
+        RESULT = new Posicao(x, y);
+    :}
+    | LPAREN error RPAREN
+    {:
+        parser.report_error("Posição deve ter formato (x, y)", null);
+        RESULT = new Posicao(0.0, 0.0);
+    :}
+;
+
+cor_valor ::= STRING:s
+    {:
+        RESULT = s;
+    :}
+    | ID:i
+    {:
+        RESULT = i;
+    :}
+;

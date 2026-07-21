@@ -1,0 +1,31 @@
+program calculadora;
+
+// Declaração de variáveis
+int x, y, resultado;
+float media;
+
+begin
+    // Leitura de valores
+    read(x);
+    read(y);
+    
+    // Cálculo da soma
+    resultado = x + y;
+    write(resultado);
+    
+    // Cálculo da média
+    media = resultado / 2;
+    write(media);
+    
+    // Estrutura condicional
+    if x > y then
+        write(x);
+    else
+        write(y);
+    
+    // Estrutura de repetição
+    while x < 10 do {
+        x = x + 1;
+        write(x);
+    }
+end

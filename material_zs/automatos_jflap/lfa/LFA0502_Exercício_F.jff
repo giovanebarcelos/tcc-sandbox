@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>264.0</x>
+			<y>277.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="q1">
+			<x>439.0</x>
+			<y>278.0</y>
+			<label>Alerta</label>
+		</state>
+		<state id="2" name="q2">
+			<x>592.0</x>
+			<y>408.0</y>
+		</state>
+		<state id="3" name="q3">
+			<x>708.0</x>
+			<y>273.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>3</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>1</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>3</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>0</read>
+		</transition>
+		<note>
+			<text>f) {w ε {0,1}* | cada 0 de w é imediatamente seguido de, no mínimo dois 1’s}  
+    11111011 - aceito
+    0111 - aceito 
+    111010 - não aceito
+    011011101111 - aceito</text>
+			<x>215.0</x>
+			<y>114.0</y>
+		</note>
+	</automaton>
+</structure>

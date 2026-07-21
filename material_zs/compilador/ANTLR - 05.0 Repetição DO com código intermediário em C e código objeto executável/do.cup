@@ -1,0 +1,92 @@
+import java.util.*;
+import java.io.*;
+import java_cup.runtime.*;
+
+parser code {:
+  public static void main(String[] args) throws Exception {
+    try {
+      DoLexer lexer = new DoLexer(new FileReader(args[0]));
+      parser p = new parser(lexer);
+      p.parse();
+      p.gerarArquivoC();
+
+      // Compilar o arquivo com GCC
+      Process proc = Runtime.getRuntime().exec("gcc output.c -o program.exe");
+      proc.waitFor();
+      System.out.println("Executable 'program.exe' successfully generated!");
+    } catch (Exception e) {
+      System.err.println("Error: " + e.getMessage());
+    }
+  }
+
+  StringBuilder codeC = new StringBuilder();
+
+  public void gerarArquivoC() throws IOException {
+    try (PrintWriter out = new PrintWriter("output.c")) {
+      out.println("#include <stdio.h>");
+      out.println("int main() {");
+      out.println(codeC.toString());
+      out.println("return 0;");
+      out.println("}");
+    }
+  }
+
+  @Override
+  public void syntax_error(Symbol s) {
+    String nome = namesTokens.getOrDefault(s.sym, nameSymbol(s));
+    System.err.println("Syntactic error: symbol '" + nome + 
+                       "' unexpected on the line " + s.left + ", column " + s.right);
+  }
+
+  static final Map<Integer, String> namesTokens = new HashMap<>();
+  static {
+    namesTokens.put(sym.EOF, "EOF");
+    namesTokens.put(sym.error, "error");
+    namesTokens.put(sym.LT, "<");
+    namesTokens.put(sym.DO, "do");
+    namesTokens.put(sym.LCOL, "[");
+    namesTokens.put(sym.RCOL, "]");
+    namesTokens.put(sym.LPAREN, "(");
+    namesTokens.put(sym.RPAREN, ")");
+    namesTokens.put(sym.PV, ";");
+    namesTokens.put(sym.ATRIB, "=");
+    namesTokens.put(sym.ID, "ID");
+    namesTokens.put(sym.NUM, "NUM");
+  }
+  
+  String nameSymbol(Symbol s) {
+    try {
+        java.lang.reflect.Field[] fields = sym.class.getFields();
+        for (java.lang.reflect.Field f : fields) {
+            if (f.getType() == int.class && f.getInt(null) == s.sym) {
+                return f.getName();
+            }
+        }
+    } catch (Exception e) {
+        // ignore
+    }
+    return "unknown";
+  }
+:}
+
+terminal DO, LCOL, RCOL, LPAREN, RPAREN, PV, ATRIB, LT, INC, OUT;
+terminal String ID;
+terminal Integer NUM;
+
+non terminal programa, stmt, outStmt;
+
+programa ::= stmt:s 
+    {: 
+      codeC.append(s); 
+    :};
+
+stmt ::= DO LCOL ID:var ATRIB NUM:init PV ID:var2 LT NUM:end PV ID:var3 INC RCOL outStmt:out 
+    {: 
+      RESULT = "for (int " + var + " = " + init + "; " + var2 + " < " + end + "; " + var3 + "++) {\n" 
+             + out + "}\n"; 
+    :};
+
+outStmt ::= OUT LPAREN ID:var RPAREN 
+    {: 
+      RESULT = "    printf(\"%d\\n\", " + var + ");\n"; 
+    :};

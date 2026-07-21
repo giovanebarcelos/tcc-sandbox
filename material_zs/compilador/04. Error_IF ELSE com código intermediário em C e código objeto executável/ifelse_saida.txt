@@ -1,0 +1,8 @@
+IF x > 0 GOTO L1
+GOTO L2
+LABEL L1
+y := 1
+GOTO L3
+LABEL L2
+y := 2
+LABEL L3

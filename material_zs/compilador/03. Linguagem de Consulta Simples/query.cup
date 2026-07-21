@@ -1,0 +1,67 @@
+import java_cup.runtime.*;
+
+parser code {:
+  public static void main(String[] args) throws Exception 
+  {
+    QueryLexer queryLexer = new QueryLexer(new java.io.FileReader(args[0]));
+    parser p = new parser(queryLexer);
+    Object result = p.parse().value;
+    System.out.println("Resultado = " + result);
+  }
+
+  @Override
+  public void syntax_error(Symbol cur_token) {
+    String tokenName;
+    if (cur_token == null) {
+      tokenName = "<desconhecido>";
+    } else if (cur_token.value != null) {
+      tokenName = cur_token.value.toString();
+    } else if (cur_token.sym >= 0 && cur_token.sym < sym.terminalNames.length) {
+      tokenName = sym.terminalNames[cur_token.sym];
+    } else {
+      tokenName = "<desconhecido>";
+    }
+
+    String lineInfo = cur_token == null || cur_token.left < 0 ? "?" : Integer.toString(cur_token.left);
+    String columnInfo = cur_token == null || cur_token.right < 0 ? "?" : Integer.toString(cur_token.right);
+
+    report_error(
+      "Erro sintático na linha " + lineInfo + ", coluna " + columnInfo +
+      ": token inesperado '" + tokenName + "'",
+      cur_token
+    );
+  }
+
+  @Override
+  public void report_error(String message, Object info) {
+    System.err.println(message);
+  }
+:};
+
+terminal FROM, SELECT, WHERE, AND, COMMA,
+         EQ, GT, LT, GTEQ, LTEQ, NOTEQ, ALL;
+terminal String ID, STRING;
+terminal Integer NUMBER;
+
+non terminal query, table, fields, field_list, 
+             opt_where, conditions, condition, 
+             operator, value;
+
+query ::= FROM table SELECT fields opt_where {:RESULT = "Done"; :};
+
+table ::= ID;
+
+fields ::= ALL | field_list;
+
+field_list ::= ID | field_list COMMA ID;
+
+opt_where ::= WHERE conditions | /* EMPTY */;
+
+conditions ::= condition | condition AND condition;
+
+condition ::= value operator value;
+
+operator ::= EQ | GT | LT | GTEQ | LTEQ | NOTEQ;
+
+value ::= ID | NUMBER | STRING;
+

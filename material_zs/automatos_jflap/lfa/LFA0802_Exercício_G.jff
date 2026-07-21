@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>55.0</x>
+			<y>227.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="q1">
+			<x>153.0</x>
+			<y>227.0</y>
+			<label>Alerta</label>
+			<final/>
+		</state>
+		<state id="2" name="q2">
+			<x>287.0</x>
+			<y>227.0</y>
+			<label>Qtde Impar de 0</label>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>1</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>1</read>
+		</transition>
+		<note>
+			<text>g) {w ε {0,1}* | entre dois 1’s de w há sempre um número par de 0’s}
+    1001 - aceita
+    10001 - não aceita
+    100 - aceita
+    111 - aceita 
+    1000010001 - não aceita
+    100001 - aceita
+    0001 - aceita </text>
+			<x>15.0</x>
+			<y>20.0</y>
+		</note>
+	</automaton>
+</structure>

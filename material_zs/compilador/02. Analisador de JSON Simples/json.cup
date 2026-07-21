@@ -1,0 +1,72 @@
+import java_cup.runtime.*;
+
+parser code {:
+  public static void main(String[] args) throws Exception {
+    JSONLexer lexer = new JSONLexer(new java.io.FileReader(args[0]));
+    parser parser = new parser(lexer);
+    Object result = parser.parse().value;
+    System.out.println("Result = " + result);
+  }
+
+  @Override
+  public void syntax_error(Symbol cur_token) {
+    String tokenName;
+    if (cur_token == null) {
+      tokenName = "<desconhecido>";
+    } else if (cur_token.value != null) {
+      tokenName = cur_token.value.toString();
+    } else if (cur_token.sym >= 0 && cur_token.sym < sym.terminalNames.length) {
+      tokenName = sym.terminalNames[cur_token.sym];
+    } else {
+      tokenName = "<desconhecido>";
+    }
+
+    String lineInfo = cur_token == null || cur_token.left < 0
+        ? "?"
+        : Integer.toString(cur_token.left);
+    String columnInfo = cur_token == null || cur_token.right < 0
+        ? "?"
+        : Integer.toString(cur_token.right);
+
+    report_error(
+        "Erro sintático na linha " + lineInfo + ", coluna " + columnInfo +
+        ": token inesperado '" + tokenName + "'",
+        cur_token);
+  }
+
+  @Override
+  public void report_error(String message, Object info) {
+    System.err.println(message);
+  }
+:}
+
+terminal LBRACE, RBRACE, LBRACKET, RBRACKET,
+  COLON, COMMA, TRUE, FALSE, NULL;
+terminal String STRING;
+terminal Integer INT;
+terminal Float FLOAT;
+
+non terminal Object json, value, object, pairs, pair, array, elements;
+
+json ::= value {: RESULT = "Done"; :}; 
+
+value ::= object
+         | array
+         | STRING
+         | INT
+         | FLOAT
+         | TRUE
+         | FALSE
+         | NULL;
+
+object ::= LBRACE pairs RBRACE 
+         | LBRACE RBRACE;
+
+pairs ::= pair | pairs COMMA pair;
+
+pair ::= STRING COLON value;
+
+array ::= LBRACKET elements RBRACKET
+        | LBRACKET RBRACKET;
+
+elements ::= value | elements COMMA value;

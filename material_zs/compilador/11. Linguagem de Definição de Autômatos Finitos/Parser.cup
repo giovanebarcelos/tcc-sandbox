@@ -1,0 +1,120 @@
+import java_cup.runtime.*;
+import java.util.*;
+
+parser code {:
+    public void syntax_error(Symbol cur_token) {
+        report_error("Erro sintático na linha " + cur_token.left + 
+                    ", coluna " + cur_token.right + 
+                    ": token inesperado '" + cur_token.value + "'", null);
+    }
+    
+    public void report_error(String message, Object info) {
+        System.err.println(message);
+    }
+:}
+
+/* Terminais */
+terminal AUTOMATON, STATES, ALPHABET, INITIAL, FINAL, TRANSITIONS, END;
+terminal LBRACE, RBRACE, COMMA, COLON, ARROW, SEMICOLON;
+terminal String IDENTIFIER, SYMBOL;
+
+/* Não-terminais */
+non terminal Automaton automaton;
+non terminal String name;
+non terminal List<String> state_list, symbol_list;
+non terminal String state, initial_state, symbol;
+non terminal List<String> final_states;
+non terminal List<Transition> transition_list;
+non terminal Transition transition;
+
+/* Precedência */
+precedence left COMMA;
+
+/* Gramática */
+start with automaton;
+
+automaton ::= AUTOMATON name:n LBRACE
+              STATES COLON state_list:sl SEMICOLON
+              ALPHABET COLON symbol_list:al SEMICOLON
+              INITIAL COLON initial_state:is SEMICOLON
+              FINAL COLON final_states:fs SEMICOLON
+              TRANSITIONS COLON LBRACE transition_list:tl RBRACE
+              RBRACE END
+              {: 
+                  Automaton a = new Automaton(n, sl, al, is, fs, tl);
+                  System.out.println("Autômato '" + n + "' compilado com sucesso!");
+                  System.out.println(a);
+                  RESULT = a;
+              :}
+              ;
+
+name ::= IDENTIFIER:id {: RESULT = id; :}
+         ;
+
+state_list ::= state:s 
+               {: 
+                   List<String> list = new ArrayList<>();
+                   list.add(s);
+                   RESULT = list;
+               :}
+             | state_list:sl COMMA state:s
+               {: 
+                   sl.add(s);
+                   RESULT = sl;
+               :}
+             ;
+
+state ::= IDENTIFIER:id {: RESULT = id; :}
+          ;
+
+symbol_list ::= symbol:s
+                {: 
+                    List<String> list = new ArrayList<>();
+                    list.add(s);
+                    RESULT = list;
+                :}
+                            | symbol_list:sl COMMA symbol:s
+                {: 
+                    sl.add(s);
+                    RESULT = sl;
+                :}
+              ;
+
+initial_state ::= IDENTIFIER:id {: RESULT = id; :}
+                  ;
+
+final_states ::= state:s
+                 {: 
+                     List<String> list = new ArrayList<>();
+                     list.add(s);
+                     RESULT = list;
+                 :}
+               | final_states:fs COMMA state:s
+                 {: 
+                     fs.add(s);
+                     RESULT = fs;
+                 :}
+               ;
+
+transition_list ::= transition:t
+                    {: 
+                        List<Transition> list = new ArrayList<>();
+                        list.add(t);
+                        RESULT = list;
+                    :}
+                  | transition_list:tl transition:t
+                    {: 
+                        tl.add(t);
+                        RESULT = tl;
+                    :}
+                  ;
+
+transition ::= state:from COMMA symbol:sym ARROW state:to SEMICOLON
+               {: 
+                   RESULT = new Transition(from, sym, to);
+               :}
+               ;
+
+symbol ::= SYMBOL:s {: RESULT = s; :}
+         | IDENTIFIER:id {: RESULT = id; :}
+         ;

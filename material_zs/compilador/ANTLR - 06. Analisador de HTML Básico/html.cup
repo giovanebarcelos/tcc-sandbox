@@ -1,0 +1,44 @@
+import java_cup.runtime.*;
+import java.io.*;
+
+parser code {:
+    public static void main(String[] args) throws Exception {
+        HtmlLexer lexer = new HtmlLexer(new java.io.FileReader(args[0]));
+        parser p = new parser(lexer);
+        p.parse();
+        System.out.println("Parse concluído com sucesso!");
+    }
+:}
+
+terminal TAG_OPEN, TAG_END_OPEN, TAG_CLOSE, EQ;
+terminal String NAME, ATTR_VALUE, TEXT;
+//terminal ERROR;
+
+non terminal document, element_list, element, tag, attributes, attribute;
+
+start with document;
+
+document ::= element_list;
+
+element_list ::=
+      /* vazio */
+    | element_list element
+    ;
+
+element ::=
+      tag
+    | TEXT
+    ;
+
+tag ::= 
+      TAG_OPEN NAME attributes TAG_CLOSE element_list TAG_END_OPEN NAME TAG_CLOSE
+    ;
+
+attributes ::=
+      /* vazio */
+    | attributes attribute
+    ;
+
+attribute ::=
+    NAME EQ ATTR_VALUE
+    ;

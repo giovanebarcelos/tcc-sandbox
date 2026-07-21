@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>309.0</x>
+			<y>294.0</y>
+			<initial/>
+			<final/>
+		</state>
+		<state id="1" name="q1">
+			<x>421.0</x>
+			<y>295.0</y>
+			<final/>
+		</state>
+		<state id="2" name="q2">
+			<x>354.0</x>
+			<y>467.0</y>
+			<final/>
+		</state>
+		<state id="3" name="q3">
+			<x>595.0</x>
+			<y>393.0</y>
+			<final/>
+		</state>
+		<state id="4" name="q4">
+			<x>522.0</x>
+			<y>298.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>4</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>1</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>3</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>1</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>2</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>2</to>
+			<read>1</read>
+		</transition>
+		<note>
+			<text>g) {w ε {0,1}* | w NÃO contém 000 nem 111}
+    10001 - não aceita 
+    10011 - aceita 
+    010100 - aceita 
+    11000 - não aceita</text>
+			<x>267.0</x>
+			<y>129.0</y>
+		</note>
+	</automaton>
+</structure>

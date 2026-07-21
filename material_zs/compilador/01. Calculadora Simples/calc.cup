@@ -1,0 +1,83 @@
+/* Arquivo: calc.cup */
+import java_cup.runtime.*;
+
+parser code {:
+  public void syntax_error(Symbol cur_token) {
+    String tokenName;
+    if (cur_token == null) {
+      tokenName = "<desconhecido>";
+    } else if (cur_token.value != null) {
+      tokenName = cur_token.value.toString();
+    } else if (cur_token.sym >= 0 && cur_token.sym < sym.terminalNames.length) {
+      tokenName = sym.terminalNames[cur_token.sym];
+    } else {
+      tokenName = "<desconhecido>";
+    }
+
+    int line = cur_token == null ? -1 : cur_token.left;
+    int column = cur_token == null ? -1 : cur_token.right;
+    String lineInfo = line >= 0 ? Integer.toString(line) : "?";
+    String columnInfo = column >= 0 ? Integer.toString(column) : "?";
+
+    report_error(
+      "Erro sintático na linha " + lineInfo + ", coluna " + columnInfo +
+      ": token inesperado '" + tokenName + "'",
+      cur_token
+    );
+  }
+
+  public void report_error(String message, Object info) {
+    System.err.println("Erro: " + message);
+  }
+  
+  public void report_fatal_error(String message, Object info) {
+    report_error(message, info);
+    throw new RuntimeException("Erro fatal na análise sintática");
+  }
+:};
+
+/* Terminais */
+terminal Integer NUMBER;
+terminal PLUS, MINUS, TIMES, DIVIDE;
+terminal LPAREN, RPAREN;
+
+/* Não-terminais */
+non terminal Integer expr;
+non terminal Integer term;
+non terminal Integer factor;
+
+/* Precedência e associatividade */
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+
+/* Gramática */
+start with expr;
+
+expr ::= expr:e1 PLUS term:e2
+         {: RESULT = e1 + e2; :}
+       | expr:e1 MINUS term:e2
+         {: RESULT = e1 - e2; :}
+       | term:t
+         {: RESULT = t; :}
+       ;
+
+term ::= term:t1 TIMES factor:t2
+         {: RESULT = t1 * t2; :}
+       | term:t1 DIVIDE factor:t2
+         {: 
+            if (t2 == 0) {
+              throw new RuntimeException("Erro: divisão por zero");
+            }
+            RESULT = t1 / t2; 
+         :}
+       | factor:f
+         {: RESULT = f; :}
+       ;
+
+factor ::= NUMBER:n
+           {: RESULT = n; :}
+         | LPAREN expr:e RPAREN
+           {: RESULT = e; :}
+         | MINUS factor:f
+           {: RESULT = -f; :}
+         ;

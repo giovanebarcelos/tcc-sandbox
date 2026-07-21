@@ -1,0 +1,19 @@
+program teste_erros;
+
+int x, y;
+float @valor;  // ERRO LÉXICO: caractere '@' inválido na linha 4, coluna 7
+
+begin
+    read(x);
+    y = x + 5
+    // ERRO SINTÁTICO: falta ponto e vírgula na linha 8
+    
+    write(y);
+    
+    if x > 10 then
+        write(x)
+    // ERRO SINTÁTICO: falta ponto e vírgula na linha 14
+    
+    while x < 20 do
+        x = x + 1;
+    // Falta 'end' no final - ERRO SINTÁTICO

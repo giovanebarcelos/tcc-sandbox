@@ -1,0 +1,105 @@
+/* ================================
+   Arquivo: markup.cup
+   Linguagem de Marcação Simples
+   Gera parser com tratamento de erro
+   ================================ */
+
+import java_cup.runtime.Symbol;
+
+parser code {:
+    private String tokenDescription(Symbol symbol) {
+        if (symbol == null) {
+            return "<desconhecido>";
+        }
+        if (symbol.value != null) {
+            return symbol.value.toString();
+        }
+        if (symbol.sym >= 0 && symbol.sym < sym.terminalNames.length) {
+            return sym.terminalNames[symbol.sym];
+        }
+        return "<desconhecido>";
+    }
+
+    private String safeLine(Symbol symbol) {
+        return symbol == null || symbol.left < 0 ? "?" : Integer.toString(symbol.left);
+    }
+
+    private String safeColumn(Symbol symbol) {
+        return symbol == null || symbol.right < 0 ? "?" : Integer.toString(symbol.right);
+    }
+
+    private void printSyntaxError(Symbol symbol, String detail) {
+        System.err.println(
+            "Erro sintático na linha " + safeLine(symbol) +
+            ", coluna " + safeColumn(symbol) +
+            ": " + detail
+        );
+    }
+
+    @Override
+    public void syntax_error(Symbol cur_token) {
+        printSyntaxError(cur_token, "token inesperado '" + tokenDescription(cur_token) + "'");
+    }
+
+    @Override
+    public void report_error(String message, Object info) {
+        if (info instanceof Symbol) {
+            printSyntaxError((Symbol) info, message);
+        } else {
+            System.err.println(message);
+        }
+    }
+:}
+
+/* ----- Tokens ----- */
+
+terminal Tag TAG_OPEN, TAG_CLOSE;
+terminal String TEXT;
+terminal String NEWLINE;
+
+/* ----- Tipo das produções ----- */
+
+non terminal Object document, elements, element;
+non terminal Tag open_tag, close_tag;
+
+/* ----- Símbolo inicial ----- */
+start with document;
+
+/* =============================== */
+/* ======= GRAMÁTICA ============= */
+/* =============================== */
+
+document ::= elements
+    ;
+
+elements ::= 
+      element elements
+    | /* vazio */
+    ;
+
+element ::= 
+            TEXT
+        | NEWLINE
+        | open_tag:open elements close_tag:close
+        {: 
+            if (!open.getName().equalsIgnoreCase(close.getName())) {
+                throw new RuntimeException(
+                    "Erro sintático na linha " + close.getLine() + ", coluna " + close.getColumn() +
+                    ": fechamento inesperado '" + close.renderClosing() + "' (esperava '" + open.renderClosing() + "')"
+                );
+            }
+        :}
+    ;
+
+open_tag ::= TAG_OPEN:t
+    {: RESULT = t; :}
+    ;
+
+close_tag ::= TAG_CLOSE:t
+    {: RESULT = t; :}
+    ;
+
+/* ================================
+   Fim do arquivo
+   ================================ */
+

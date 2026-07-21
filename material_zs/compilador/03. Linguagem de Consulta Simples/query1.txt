@@ -1,0 +1,1 @@
+FROM users SELECT name, year WHERE year > 1973 AND name = 'Muttley'

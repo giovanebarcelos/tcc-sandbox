@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>61.0</x>
+			<y>282.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="q1">
+			<x>205.0</x>
+			<y>291.0</y>
+		</state>
+		<state id="2" name="q2">
+			<x>355.0</x>
+			<y>286.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>2</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>1</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read/>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>0</to>
+			<read/>
+		</transition>
+		<note>
+			<text>EXN10614. (Desenvolvimento de um AFN-ε)
+
+Para esta questão, suponha que o alfabeto seja Σ = {0, 1}. Projete um autômato finito 
+não determinístico com movimento vazio (AFN-ε) que reconheça a linguagem L de 
+todas as palavras que têm um número ímpar de '0's.
+Aceitação: 
+- 0 - aceita
+- 000 - aceita
+- 010101 - aceita
+- 111000 - aceita
+- 01011 - não aceita 
+- 11100 - não aceita</text>
+			<x>15.0</x>
+			<y>7.0</y>
+		</note>
+	</automaton>
+</structure>

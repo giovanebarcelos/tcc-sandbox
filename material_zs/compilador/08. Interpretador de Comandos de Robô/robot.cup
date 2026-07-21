@@ -1,0 +1,56 @@
+import java_cup.runtime.*;
+
+parser code {:
+    public static void main(String[] args) throws Exception {
+        RobotLexer lexer = new RobotLexer(new java.io.FileReader(args[0]));
+        parser p = new parser(lexer);
+        p.parse();
+    }
+
+    @Override
+    public void syntax_error(Symbol cur_token) {
+        String tokenName;
+        if (cur_token == null) {
+            tokenName = "<desconhecido>";
+        } else if (cur_token.value != null) {
+            tokenName = cur_token.value.toString();
+        } else if (cur_token.sym >= 0 && cur_token.sym < sym.terminalNames.length) {
+            tokenName = sym.terminalNames[cur_token.sym];
+        } else {
+            tokenName = "<desconhecido>";
+        }
+
+        String lineInfo = cur_token == null || cur_token.left < 0 ? "?" : Integer.toString(cur_token.left);
+        String columnInfo = cur_token == null || cur_token.right < 0 ? "?" : Integer.toString(cur_token.right);
+
+        report_error(
+            "Erro sintático na linha " + lineInfo + ", coluna " + columnInfo +
+            ": token inesperado '" + tokenName + "'",
+            cur_token
+        );
+    }
+
+    @Override
+    public void report_error(String message, Object info) {
+        System.err.println(message);
+    }
+:}
+
+terminal MOVE, LEFT, RIGHT, LOOP, TIMES, LBRACE, RBRACE;
+terminal Integer NUMBER;
+
+non terminal program, command, commands, loop;
+
+program ::= commands;
+
+commands ::= command
+           | commands command
+           ;
+
+command ::= MOVE
+          | LEFT
+          | RIGHT
+          | loop
+          ;
+
+loop ::= LOOP NUMBER TIMES LBRACE commands RBRACE;

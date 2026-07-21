@@ -1,0 +1,74 @@
+import java_cup.runtime.*;
+import java.io.*;
+import java.util.*;
+
+parser code {:
+  StringBuilder codeC = new StringBuilder();
+
+  public static void main(String[] args) throws Exception{
+    DoLexer doLexer = new DoLexer(new FileReader(args[0]));
+    parser p = new parser(doLexer);
+    p.parse();
+
+    p.createCodeC();
+    System.out.println("\nSource code 'output.c' successfully generated!\n");
+
+    Process prc = Runtime.getRuntime().exec("gcc output.c -o program.exe");
+    prc.waitFor(); 
+    System.out.println("\nExecutable 'program.exe' successfully generated!\n");
+  }
+
+  public void createCodeC() throws Exception{    
+    try (PrintWriter out = new PrintWriter("output.c")){
+        out.println("#include <stdio.h>");
+        out.println("int main() {");
+        out.println(codeC.toString());
+        out.println("return 0;");
+        out.println("}");
+    }
+  }
+
+  @Override 
+  public void syntax_error(Symbol s){
+    System.err.println( "Syntactic error: symbol '"+ tokensNames.get(s.sym) +
+                        "' unexpected on the line "+ s.left + 
+                        " and column "+ s.right);
+  }
+
+  static final Map<Integer, String> tokensNames = new HashMap<Integer, String>();
+
+  static {  
+    tokensNames.put(sym.EOF, "EOF");
+    tokensNames.put(sym.error, "error");
+    tokensNames.put(sym.DO, "do");
+    tokensNames.put(sym.LCOL, "[");
+    tokensNames.put(sym.RCOL,  "]");
+    tokensNames.put(sym.ATRIB, "="); 
+    tokensNames.put(sym.LT, "<");
+    tokensNames.put(sym.PV, ";");
+    tokensNames.put(sym.INC, "++");
+    tokensNames.put(sym.OUT, "out");
+    tokensNames.put(sym.LPAREN, "(");
+    tokensNames.put(sym.RPAREN, ")");
+    tokensNames.put(sym.ID, "ID");
+    tokensNames.put(sym.NUM, "Number" );
+  }
+
+:}
+
+terminal DO, LCOL, RCOL, ATRIB, LT, PV, INC, OUT, LPAREN, RPAREN; 
+terminal String ID;
+terminal Integer NUM;
+
+non terminal program, stmt, outStmt;
+
+program ::= stmt:s {: codeC.append(s); :};
+
+stmt ::= DO LCOL ID:var ATRIB NUM:init PV ID:var1 LT NUM:num PV ID:var2 INC RCOL outStmt:stmt
+         {:
+            RESULT = "for (int " + var + " = " + init + "; "+ var1 + " < "+ num +"; " + var2 + "++ ){\n "+
+                     stmt + "\n}\n";
+         :};
+
+outStmt ::= OUT LPAREN ID:id RPAREN
+            {: RESULT = "printf(\"%d\\n\", " + id + ");\n"; :}; 

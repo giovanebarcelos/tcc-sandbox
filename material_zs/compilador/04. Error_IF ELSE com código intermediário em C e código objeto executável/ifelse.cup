@@ -1,0 +1,109 @@
+import java.util.*;
+import java_cup.runtime.*;
+
+parser code {:
+  String novaLabel() {
+      return "L" + (++labelCount);
+  }
+
+  int labelCount = 0;
+
+  public static void main(String[] args) throws Exception{
+     try {
+       IfElseLexer lexer = new IfElseLexer(
+                                 new java.io.FileReader(args[0]));
+     
+       parser p = new parser(lexer);
+       p.parse();
+     } catch (Exception e) {
+          System.err.println(e.getMessage());
+     }
+  }
+
+  @Override
+  public void syntax_error(Symbol s) {
+    String nome = nomesTokens.getOrDefault(s.sym, nomeSimbolo(s));
+    System.err.println("Erro sintático: símbolo '" + nome + 
+                       "' inesperado na linha " + s.left + ", coluna " + s.right);
+  }
+
+  static final Map<Integer, String> nomesTokens = Map.of(
+    sym.IF, "if",
+    sym.ELSE, "else",
+    sym.LPAREN, "(",
+    sym.RPAREN, ")",
+    sym.PV, ";",
+    sym.ATRIB, "=",
+    sym.EQ, "==",
+    sym.LT, "<",
+    sym.GT, ">"
+    // etc.
+  );
+
+  String nomeSimbolo(Symbol s) {
+    try {
+        java.lang.reflect.Field[] fields = sym.class.getFields();
+        for (java.lang.reflect.Field f : fields) {
+            if (f.getType() == int.class && f.getInt(null) == s.sym) {
+                return f.getName();
+            }
+        }
+    } catch (Exception e) {
+        // ignorar
+    }
+    return "desconhecido";
+  }
+:}
+
+
+terminal IF, ELSE, LPAREN, RPAREN, PV, ATRIB;
+terminal EQ, LT, GT;
+terminal String ID;
+terminal Integer NUM;
+
+non terminal programa;
+non terminal List<String> stmt;
+non terminal List<String> cond;
+non terminal List<String> bloco;
+non terminal String op;
+
+programa ::= stmt:c 
+    {: 
+        for (String linha : c) System.out.println(linha); 
+    :};
+
+stmt ::= IF LPAREN cond:cond RPAREN bloco:b1 ELSE bloco:b2 
+    {: 
+        List<String> cod = new ArrayList<>();
+        String l1 = "L1", l2 = "L2", l3 = "L3";
+
+        cod.add("IF " + cond.get(0) + " GOTO " + l1);
+        cod.add("GOTO " + l2);
+        cod.add(l1 + ":");
+        cod.addAll(b1);
+        cod.add("GOTO " + l3);
+        cod.add(l2 + ":");
+        cod.addAll(b2);
+        cod.add(l3 + ":");
+        RESULT = cod;
+    :};
+
+cond ::= ID:var op:operador NUM:num 
+    {: 
+        List<String> l = new ArrayList<>();
+        l.add(var + " " + operador + " " + num); 
+        RESULT = l;
+    :};
+
+op ::= EQ {: RESULT = "=="; :}
+     | LT {: RESULT = "<"; :}
+     | GT {: RESULT = ">"; :}
+     ;
+
+bloco ::= ID:var ATRIB NUM:num PV 
+    {: 
+        List<String> l = new ArrayList<>();
+        l.add(var + " = " + num); 
+        RESULT = l;
+    :};
+

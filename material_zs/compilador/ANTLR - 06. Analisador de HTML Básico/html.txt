@@ -1,0 +1,9 @@
+<html>
+  <head>
+    <title>Exemplo</title>
+  </head>
+  <body class="conteudo" id='pagina'>
+    <h1>Bem-vindo!</h1>
+    <p>Este é um parágrafo com <a href="https://exemplo.com">link</a>.</p>
+  </body>
+</html>

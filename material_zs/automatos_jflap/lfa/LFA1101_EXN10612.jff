@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>105.0</x>
+			<y>239.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="q1">
+			<x>200.0</x>
+			<y>243.0</y>
+		</state>
+		<state id="2" name="q2">
+			<x>301.0</x>
+			<y>241.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>2</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>1</to>
+			<read>0</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>1</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>0</read>
+		</transition>
+		<note>
+			<text>EXN10612.  (Desenvolvimento de um AFD)
+
+Considere o alfabeto Σ = {0, 1}. Projete um autômato finito determinístico (AFD) que reconheça a 
+linguagem L de todas as palavras que começam com '0' e terminam com '1'. 
+Aceitação: 
+- 0101  - aceita
+- 101   - não aceita 
+- 001   - aceita 
+- 01    - aceita 
+- 01110 - não aceita</text>
+			<x>59.0</x>
+			<y>14.0</y>
+		</note>
+	</automaton>
+</structure>

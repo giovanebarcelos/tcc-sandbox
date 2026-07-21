@@ -1,0 +1,6 @@
+{
+   "name": "Muttley" 
+   "age": 36, 
+   "grades": [100, 30.6, 90.8], 
+   "passed": true
+}

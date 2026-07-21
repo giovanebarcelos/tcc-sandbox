@@ -1,0 +1,28 @@
+program fatorial;
+
+int n, fat, i;
+
+begin
+    read(n);
+    fat = 1;
+    i = 1;
+    
+    // Calcula o fatorial
+    while i <= n do {
+        fat = fat * i;
+        i = i + 1;
+    }
+    
+    write(fat);
+    
+    // Verifica se é par ou ímpar
+    if n == 0 then
+        write(0);
+    
+    if n != 0 then {
+        if n > 0 then
+            write(1);
+        else
+            write(-1);
+    }
+end

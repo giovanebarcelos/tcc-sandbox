@@ -1,0 +1,2 @@
+do [num = 0; num < 11; num++]
+   out(num) 

@@ -1,0 +1,116 @@
+import java.util.*;
+import java.io.*;
+import java_cup.runtime.*;
+
+parser code {:
+  String novaLabel() {
+      return "L" + (++labelCount);
+  }
+
+  int labelCount = 0;
+
+  public static void main(String[] args) throws Exception{
+     try {
+       IfElseLexer lexer = new IfElseLexer(
+                                 new java.io.FileReader(args[0]));
+
+       parser p = new parser(lexer);
+       p.parse();
+
+       p.gerarArquivoC();
+       System.out.println("Arquivo C gerado: saida.c");
+
+       // Compilar o arquivo C usando gcc
+       Process pGcc = Runtime.getRuntime().exec("gcc saida.c -o programa.exe");
+       pGcc.waitFor();
+
+       System.out.println("Executável 'programa.exe' gerado com sucesso!");
+     } catch (Exception e) {
+          System.err.println(e.getMessage());
+     }
+  }
+
+  StringBuilder codigoC = new StringBuilder();
+
+  public void gerarArquivoC() throws IOException {
+      try (PrintWriter out = new PrintWriter("saida.c")) {
+          out.println("#include <stdio.h>");
+          out.println("int main() {");
+          out.println("int a = 0, b = 0, c = 0;"); // declarações genéricas
+          out.println(codigoC.toString());
+          out.println("printf(\"\\nAstha La Vista Baby!\\n\");");
+          out.println("return 0;");
+          out.println("}");
+      }
+  }
+
+  @Override
+  public void syntax_error(Symbol s) {
+    String nome = nomesTokens.getOrDefault(s.sym, nomeSimbolo(s));
+    System.err.println("Erro sintático: símbolo '" + nome + 
+                       "' inesperado na linha " + s.left + ", coluna " + s.right);
+  }
+
+  static final Map<Integer, String> nomesTokens = Map.of(
+    sym.IF, "if",
+    sym.ELSE, "else",
+    sym.LPAREN, "(",
+    sym.RPAREN, ")",
+    sym.PV, ";",
+    sym.ATRIB, "=",
+    sym.EQ, "==",
+    sym.LT, "<",
+    sym.GT, ">"
+  );
+
+  String nomeSimbolo(Symbol s) {
+    try {
+        java.lang.reflect.Field[] fields = sym.class.getFields();
+        for (java.lang.reflect.Field f : fields) {
+            if (f.getType() == int.class && f.getInt(null) == s.sym) {
+                return f.getName();
+            }
+        }
+    } catch (Exception e) {
+        // ignorar
+    }
+    return "desconhecido";
+  }
+:}
+
+
+terminal IF, ELSE, LPAREN, RPAREN, PV, ATRIB;
+terminal EQ, LT, GT;
+terminal String ID;
+terminal Integer NUM;
+
+non terminal programa;
+non terminal String stmt;
+non terminal String cond;
+non terminal String bloco;
+non terminal String op;
+
+programa ::= stmt:s 
+    {: 
+        codigoC.append(s);
+    :};
+
+stmt ::= IF LPAREN cond:cond RPAREN bloco:b1 ELSE bloco:b2 
+    {: 
+        RESULT = "if (" + cond + ") {\n" + b1 + "\n} else {\n" + b2 + "\n}\n";
+    :};
+
+cond ::= ID:var op:operador NUM:num 
+    {: 
+        RESULT = var + " " + operador + " " + num; 
+    :};
+
+op ::= EQ {: RESULT = "=="; :}
+     | LT {: RESULT = "<"; :}
+     | GT {: RESULT = ">"; :}
+     ;
+
+bloco ::= ID:var ATRIB NUM:num PV 
+    {: 
+        RESULT = var + " = " + num + ";\n"; 
+    :};

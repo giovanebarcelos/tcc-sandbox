@@ -1,0 +1,54 @@
+import java_cup.runtime.*;
+import java.io.*;
+import java.util.*;
+
+parser code {:
+  public static void main(String[] args) throws Exception{
+    HTMLFlexLexer htmlLexer = new HTMLFlexLexer(new FileReader(args[0]));
+    parser p = new parser(htmlLexer);
+    p.parse();
+    System.out.println("Astha La Vista Baby!");
+  }
+
+  @Override 
+  public void syntax_error(Symbol s){
+    System.err.println( "Syntactic error: symbol '"+ tokensNames.get(s.sym) +
+                        "' unexpected on the line "+ s.left + 
+                        " and column "+ s.right);
+  }
+
+  static final Map<Integer, String> tokensNames = new HashMap<Integer, String>();
+
+  static {  
+     tokensNames.put(sym.EOF, "EOF");
+     tokensNames.put(sym.error, "error");
+     tokensNames.put(sym.TAG_END_OPEN, "</");
+     tokensNames.put(sym.TAG_OPEN, "<");
+     tokensNames.put(sym.EQ, "=");
+     tokensNames.put(sym.TEXT, "TEXT");
+     tokensNames.put(sym.NAME, "NAME");
+     tokensNames.put(sym.ATTR_VALUE, "ATTR_VALUE");
+     tokensNames.put(sym.TAG_CLOSE, ">");
+  }
+
+:}
+
+terminal TAG_END_OPEN, TAG_OPEN, EQ;
+
+terminal String TEXT, NAME, ATTR_VALUE, TAG_CLOSE; 
+
+non terminal document, element_list, element, tag, attributes, attribute;
+
+start with document;
+
+document ::= element_list;
+
+element_list ::= element_list element | /* NULL */ ; 
+
+element ::= tag | TEXT; 
+
+tag ::= TAG_OPEN NAME attributes TAG_CLOSE element_list TAG_END_OPEN NAME TAG_CLOSE;
+
+attributes ::= attributes attribute | /* NULL */ ; 
+
+attribute ::= NAME EQ ATTR_VALUE; 
