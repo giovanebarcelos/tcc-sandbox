@@ -15,6 +15,13 @@ __pycache__/
 *Listener.java
 *Visitor.java
 
+# Exceção: os fontes didáticos seguem o padrão TCCnnss-Nome.java e são escritos
+# à mão. O ANTLR nomeia sua saída pela gramática (CalcParser.java, CalcVisitor.
+# java...), nunca com o prefixo TCC — então a negação abaixo não reabre nenhum
+# arquivo gerado. Sem ela, TCC2302-Visitor.java e TCC2402-ErrorListener.java
+# ficam fora do repositório e seus links nas Aulas 23 e 24 quebram na publicação.
+!TCC*.java
+
 # HTML gerado a partir dos .md (md2html.sh) — artefato de build, como nos demais cursos.
 # Exceção: material_zs/ traz .html originais do acervo 2025-02 (não são gerados aqui).
 *.html
