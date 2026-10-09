@@ -11,7 +11,7 @@
 // sobrecarga estática já ligada ao tipo concreto). É esse par de despachos
 // que substitui o `instanceof` encadeado.
 
-public class TCC2302Visitor {
+class TCC2302Visitor {
 
     // ---------- Visitor (abstrato) ----------
     abstract static class ASTVisitor {

@@ -2,7 +2,7 @@
 // Experimento didático do Problema da Parada.
 // Demonstra por contradição que não existe um decisor universal `vaiParar(prog, entrada)`.
 // Espelho Java do TCC1301-ParadaExperimento.py (mesmas saídas).
-public class TCC1301ParadaExperimento {
+class TCC1301ParadaExperimento {
 
     interface Programa {
         void executar(String entrada);

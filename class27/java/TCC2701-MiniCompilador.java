@@ -2,9 +2,12 @@
 // Esqueleto do Projeto Integrador A3 — mini-interpretador.
 // Linguagem: variáveis, expressões, if/else, while, print.
 // Espelho Java do TCC2701-MiniCompilador.py (mesma linguagem e saídas).
+// Executar: java TCC2701-MiniCompilador.java [programa.txt]   (sem argumento: roda o exemplo)
+//      (ou: javac TCC2701-MiniCompilador.java && java TCC2701MiniCompilador [programa.txt])
+import java.nio.file.*;
 import java.util.*;
 
-public class TCC2701MiniCompilador {
+class TCC2701MiniCompilador {
 
     // ---------- Token ----------
     static class Token {
@@ -35,10 +38,10 @@ public class TCC2701MiniCompilador {
                 tokens.add(new Token(keywords.contains(lex) ? "KEYWORD" : "ID", lex, linha, startCol));
                 col += j - i; i = j; continue;
             }
+            if (i + 1 < n && List.of("==", "!=", "<=", ">=").contains(fonte.substring(i, i + 2))) {
+                tokens.add(new Token("OP", fonte.substring(i, i + 2), linha, startCol)); i += 2; col += 2; continue;
+            }
             if ("+-*/=<>".indexOf(c) >= 0) {
-                if (c == '=' && i + 1 < n && fonte.charAt(i + 1) == '=') {
-                    tokens.add(new Token("OP", "==", linha, startCol)); i += 2; col += 2; continue;
-                }
                 tokens.add(new Token("OP", String.valueOf(c), linha, startCol)); i++; col++; continue;
             }
             if ("(){};".indexOf(c) >= 0) {
@@ -131,7 +134,17 @@ public class TCC2701MiniCompilador {
             return stmts;
         }
 
-        No expr() { return binop(term(), "+-"); }
+        // Precedência (da menor para a maior): relacional < (+ -) < (* /)
+        No expr() {
+            No esq = arit();
+            if (peek().tipo.equals("OP") && List.of("==", "!=", "<", ">", "<=", ">=").contains(peek().valor)) {
+                String op = consume().valor;
+                esq = new BinOp(op, esq, arit());
+            }
+            return esq;
+        }
+
+        No arit() { return binop(term(), "+-"); }
         No term() { return binop(factor(), "*/"); }
 
         No binop(No esq, String ops) {
@@ -160,7 +173,10 @@ public class TCC2701MiniCompilador {
 
         void execStmt(No s) {
             if (s instanceof Assign) { Assign a = (Assign) s; vars.put(a.nome, eval(a.expr)); }
-            else if (s instanceof Print) { System.out.println(eval(((Print) s).expr)); }
+            else if (s instanceof Print) {
+                double v = eval(((Print) s).expr);
+                System.out.println(v == Math.rint(v) && !Double.isInfinite(v) ? String.valueOf((long) v) : String.valueOf(v));  // 11.0 -> 11
+            }
             else if (s instanceof If) { If i = (If) s; if (eval(i.cond) != 0) executar(i.thenB); else executar(i.elseB); }
             else if (s instanceof While) { While w = (While) s; while (eval(w.cond) != 0) executar(w.body); }
         }
@@ -179,9 +195,16 @@ public class TCC2701MiniCompilador {
                     case "+": return esq + dir;
                     case "-": return esq - dir;
                     case "*": return esq * dir;
-                    case "/": return esq / dir;
+                    case "/":
+                        if (dir == 0) throw new ArithmeticException("Divisão por zero");
+                        return esq / dir;
+                    // relacionais: 1 = verdadeiro, 0 = falso
+                    case "==": return esq == dir ? 1 : 0;
+                    case "!=": return esq != dir ? 1 : 0;
                     case ">": return esq > dir ? 1 : 0;
                     case "<": return esq < dir ? 1 : 0;
+                    case ">=": return esq >= dir ? 1 : 0;
+                    case "<=": return esq <= dir ? 1 : 0;
                     default: throw new RuntimeException("Operador inválido: " + b.op);
                 }
             }
@@ -189,8 +212,23 @@ public class TCC2701MiniCompilador {
         }
     }
 
-    public static void main(String[] args) {
-        String fonte = "x = 3 + 4 * 2;\nprint(x);\nif (x > 10) {\n    print(1);\n} else {\n    print(0);\n}\n";
+    static final String EXEMPLO = """
+            x = 3 + 4 * 2;
+            print(x);
+            if (x > 5) {
+                y = x - 1;
+                print(y);
+            } else {
+                print(0);
+            }
+            while (x > 0) {
+                x = x - 1;
+                print(x);
+            }
+            """;
+
+    public static void main(String[] args) throws Exception {
+        String fonte = args.length > 0 ? Files.readString(Path.of(args[0])) : EXEMPLO;
         System.out.println("=== Fonte ===");
         System.out.println(fonte);
         List<Token> tokens = scanner(fonte);

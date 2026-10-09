@@ -5,7 +5,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class TCC1201SimuladorMT {
+class TCC1201SimuladorMT {
 
     static class Resultado {
         boolean aceita;

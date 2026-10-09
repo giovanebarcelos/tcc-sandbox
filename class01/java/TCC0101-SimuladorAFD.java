@@ -3,13 +3,13 @@
 // Simulador de Autômato Finito Determinístico (AFD).
 // AFD de exemplo: aceita palavras sobre {0,1} com número PAR de '1's.
 // Mesmo exemplo implementado em Python: TCC0101-SimuladorAFD.py
-// Compilar/executar: javac TCC0101-SimuladorAFD.java (renomeie para SimuladorAFD.java)
-//                    java SimuladorAFD
+// Executar: java TCC0101-SimuladorAFD.java
+//      (ou: javac TCC0101-SimuladorAFD.java && java SimuladorAFD)
 
 import java.util.Map;
 import java.util.Set;
 
-public class SimuladorAFD {
+class SimuladorAFD {
     private final Set<String> estados;              // conjunto de estados
     private final Set<Character> alfabeto;          // símbolos válidos
     private final Map<String, String> transicoes;   // "estado,simbolo" -> estado

@@ -88,7 +88,7 @@ def p_error(p):
         print("Erro de sintaxe: fim de entrada inesperado")
 
 
-parser = yacc.yacc()
+parser = yacc.yacc(write_tables=False, debug=False)  # não grava parsetab.py/parser.out
 
 if __name__ == "__main__":
     testes = ["3 + 4 * 2;", "(3 + 4) * 2;", "10 / 2 - 1;"]

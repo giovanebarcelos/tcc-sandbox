@@ -3,8 +3,10 @@
 Esqueleto do Projeto Integrador A3 — mini-interpretador.
 Linguagem: variáveis, expressões, if/else, while, print.
 Stack: Python puro (sem dependências) — pode ser portado para ANTLR/PLY.
+Uso: python3 TCC2701-MiniCompilador.py [programa.txt]   (sem argumento: roda o exemplo)
 """
 import re
+import sys
 from typing import Dict, List, Tuple
 
 
@@ -12,9 +14,9 @@ from typing import Dict, List, Tuple
 TOKEN_SPEC = [
     ("NUM",     r"\d+(\.\d+)?"),
     ("ID",      r"[a-zA-Z_]\w*"),
-    ("OP",      r"==|[-+*/=<>]"),
+    ("OP",      r"==|!=|<=|>=|[-+*/=<>]"),
     ("PUNCT",   r"[(){};]"),
-    ("WS",      r"\s+"),
+    ("WS",      r"[ \t\r]+"),     # sem \n: a quebra de linha é tratada abaixo (conta linhas)
     ("COMMENT", r"#[^\n]*"),
 ]
 KEYWORDS = {"if", "else", "while", "print"}
@@ -133,7 +135,15 @@ class Parser:
         self.consume("PUNCT", "}")
         return stmts
 
+    # Precedência (da menor para a maior): relacional < (+ -) < (* /)
     def expr(self):
+        esq = self.arit()
+        if self.peek()[0] == "OP" and self.peek()[1] in ("==", "!=", "<", ">", "<=", ">="):
+            op = self.consume()[1]
+            esq = ("binop", op, esq, self.arit())
+        return esq
+
+    def arit(self):
         return self.expr_binop(self.term, ["+", "-"])
 
     def term(self):
@@ -177,7 +187,8 @@ class Interpretador:
             val = self.eval(s[2])
             self.vars[s[1]] = val
         elif s[0] == "print":
-            print(self.eval(s[1]))
+            v = self.eval(s[1])
+            print(int(v) if v.is_integer() else v)   # 11.0 -> 11
         elif s[0] == "if":
             if self.eval(s[1]) != 0:
                 self.executar(s[2])
@@ -195,22 +206,41 @@ class Interpretador:
                 raise NameError(f"Variável '{e[1]}' não definida")
             return self.vars[e[1]]
         if e[0] == "binop":
-            esq = self.eval(e[2])
-            dir_ = self.eval(e[3])
-            ops = {"+": esq + dir_, "-": esq - dir_, "*": esq * dir_, "/": esq / dir_}
-            return ops[e[1]]
+            op, esq, dir_ = e[1], self.eval(e[2]), self.eval(e[3])
+            if op == "+": return esq + dir_
+            if op == "-": return esq - dir_
+            if op == "*": return esq * dir_
+            if op == "/":
+                if dir_ == 0:
+                    raise ZeroDivisionError("Divisão por zero")
+                return esq / dir_
+            # relacionais: 1 = verdadeiro, 0 = falso
+            rel = {"==": esq == dir_, "!=": esq != dir_, "<": esq < dir_,
+                   ">": esq > dir_, "<=": esq <= dir_, ">=": esq >= dir_}
+            return 1.0 if rel[op] else 0.0
+        raise ValueError(f"Nó não suportado: {e[0]}")
 
 
-if __name__ == "__main__":
-    fonte = """
-x = 3 + 4 * 2;
+EXEMPLO = """x = 3 + 4 * 2;
 print(x);
-if (x > 10) {
-    print(1);
+if (x > 5) {
+    y = x - 1;
+    print(y);
 } else {
     print(0);
 }
+while (x > 0) {
+    x = x - 1;
+    print(x);
+}
 """
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        with open(sys.argv[1], encoding="utf-8") as f:
+            fonte = f.read()
+    else:
+        fonte = EXEMPLO
     print("=== Fonte ===")
     print(fonte)
     tokens = scanner(fonte)

@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * Mesma lógica e mesma saída do TCC0201-GeradorDePalavras.py.
  */
-public class GeradorDePalavras {
+class GeradorDePalavras {
 
     static Map<String, List<List<String>>> producoes = new LinkedHashMap<>();
     static {

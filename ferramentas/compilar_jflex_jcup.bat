@@ -14,4 +14,4 @@ java -jar "%DIR%java-cup-11b.jar" -interface -parser parser -symbols sym %2
 if errorlevel 1 exit /b 1
 echo [3/3] Compilando (javac)...
 javac -cp "%DIR%java-cup-11b-runtime.jar;." *.java
-echo Pronto. Execute: java -cp "%DIR%java-cup-11b-runtime.jar;." Main entrada.txt
+echo Pronto. Execute: java -cp "%DIR%java-cup-11b-runtime.jar;." parser entrada.txt   (ou a classe que tem o main)

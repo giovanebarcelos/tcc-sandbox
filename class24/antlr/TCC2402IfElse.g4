@@ -1,7 +1,7 @@
-// TCC2402-IfElse.g4 | Aula 24
+// TCC2402IfElse.g4 | Aula 24
 // Gramática ANTLR 4 com IF/ELSE, DO/WHILE e recuperação de erros.
-// Build: antlr4 -Dlanguage=Python3 -visitor TCC2402-IfElse.g4
-//        antlr4 -Dlanguage=Java     -visitor TCC2402-IfElse.g4
+// Build: antlr4 -Dlanguage=Python3 -visitor TCC2402IfElse.g4
+//        antlr4 -Dlanguage=Java     -visitor TCC2402IfElse.g4
 grammar TCC2402IfElse;
 
 program : stmt+ EOF ;

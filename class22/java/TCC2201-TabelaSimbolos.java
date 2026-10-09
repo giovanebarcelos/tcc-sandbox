@@ -3,7 +3,7 @@
 // Espelho Java do TCC2201-TabelaSimbolos.py (mesmas operações e saídas).
 import java.util.*;
 
-public class TCC2201TabelaSimbolos {
+class TCC2201TabelaSimbolos {
 
     static class Simbolo {
         String nome, tipo;

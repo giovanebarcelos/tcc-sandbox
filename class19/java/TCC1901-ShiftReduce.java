@@ -3,7 +3,7 @@
 // Espelho Java do TCC1901-ShiftReduce.py (mesmas entradas e saídas).
 import java.util.*;
 
-public class TCC1901ShiftReduce {
+class TCC1901ShiftReduce {
 
     // Produções (lado esquerdo, lado direito)
     static String[][] producoes = {
@@ -74,9 +74,10 @@ public class TCC1901ShiftReduce {
         while (i < n) {
             char c = expr.charAt(i);
             if (Character.isWhitespace(c)) { i++; continue; }
-            if (Character.isDigit(c)) {
+            if (Character.isLetterOrDigit(c) || c == '_') {
+                // identificador (id, x, soma) ou número (42): tudo vira o terminal "id"
                 tokens.add("id");
-                while (i < n && Character.isDigit(expr.charAt(i))) i++;
+                while (i < n && (Character.isLetterOrDigit(expr.charAt(i)) || expr.charAt(i) == '_')) i++;
             } else if ("+*()".indexOf(c) >= 0) {
                 tokens.add(String.valueOf(c));
                 i++;

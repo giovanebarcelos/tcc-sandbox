@@ -3,7 +3,7 @@
 // Espelho Java do TCC1801-FirstFollow.py (mesma gramática e saídas).
 import java.util.*;
 
-public class TCC1801FirstFollow {
+class TCC1801FirstFollow {
 
     // Gramática: não-terminal → lista de produções
     static Map<String, List<List<String>>> gramatica = new LinkedHashMap<>();
@@ -109,12 +109,45 @@ public class TCC1801FirstFollow {
 
         System.out.println("=== FIRST ===");
         for (String nt : naoTerminais) {
-            System.out.println("  First(" + nt + ") = " + first.get(nt));
+            System.out.println("  First(" + nt + ") = " + fmt(first.get(nt)));
         }
 
         System.out.println("\n=== FOLLOW ===");
         for (String nt : naoTerminais) {
-            System.out.println("  Follow(" + nt + ") = " + follow.get(nt));
+            System.out.println("  Follow(" + nt + ") = " + fmt(follow.get(nt)));
         }
+
+        // M[A, a] = A → α  se a ∈ First(α), ou se ε ∈ First(α) e a ∈ Follow(A)
+        List<String> colunas = new ArrayList<>(terminais);
+        colunas.add("$");
+        System.out.println("\n=== Tabela LL(1) ===");
+        StringBuilder cab = new StringBuilder(String.format("%6s", ""));
+        for (String t : colunas) cab.append(String.format("%12s", t));
+        System.out.println(cab);
+        for (String nt : naoTerminais) {
+            StringBuilder linha = new StringBuilder(String.format("%6s", nt));
+            for (String t : colunas) {
+                String celula = "";
+                for (List<String> prod : gramatica.get(nt)) {
+                    Set<String> f = firstDeSequencia(prod);
+                    if (f.contains(t) || (f.contains("ε") && follow.get(nt).contains(t))) {
+                        celula = String.join(" ", prod);
+                        break;
+                    }
+                }
+                linha.append(String.format("%12s", celula));
+            }
+            System.out.println(linha);
+        }
+    }
+
+    /** Conjunto na ordem dos terminais: {+, ε}. */
+    static String fmt(Set<String> conjunto) {
+        List<String> ordem = new ArrayList<>(terminais);
+        ordem.add("$");
+        ordem.add("ε");
+        StringJoiner sj = new StringJoiner(", ", "{", "}");
+        for (String t : ordem) if (conjunto.contains(t)) sj.add(t);
+        return sj.toString();
     }
 }

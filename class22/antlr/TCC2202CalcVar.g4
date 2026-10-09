@@ -1,8 +1,8 @@
-// TCC2202-CalcVar.g4 | Aula 22
+// TCC2202CalcVar.g4 | Aula 22
 // Gramática ANTLR 4 da calculadora com variáveis — para Visitor semântico.
 // Gera parser Java e Python (multi-alvo).
-// Build: antlr4 -Dlanguage=Python3 -visitor TCC2202-CalcVar.g4
-//        antlr4 -Dlanguage=Java     -visitor TCC2202-CalcVar.g4
+// Build: antlr4 -Dlanguage=Python3 -visitor TCC2202CalcVar.g4
+//        antlr4 -Dlanguage=Java     -visitor TCC2202CalcVar.g4
 grammar TCC2202CalcVar;
 
 program : stmt+ EOF ;

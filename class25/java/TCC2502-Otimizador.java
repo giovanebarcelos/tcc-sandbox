@@ -3,7 +3,7 @@
 // Espelho Java do TCC2502-Otimizador.py (mesmas entradas e saídas).
 import java.util.*;
 
-public class TCC2502Otimizador {
+class TCC2502Otimizador {
 
     static boolean ehNum(String s) {
         try { Double.parseDouble(s); return true; }

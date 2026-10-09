@@ -1,13 +1,13 @@
 // TCC2601-Main.java | Aula 26
-// Driver Java para a gramática ANTLR TCC2601-Expr.g4.
+// Driver Java para a gramática ANTLR TCC2601Expr.g4.
 // Avalia expressões usando Visitor.
-// Build: antlr4 -Dlanguage=Java -visitor TCC2601-Expr.g4
-//        javac TCC2601Expr*.java TCC2601Main.java
+// Build: antlr4 -Dlanguage=Java -visitor TCC2601Expr.g4
+//        javac TCC2601Expr*.java TCC2601-Main.java   (antlr-4.13.1-complete.jar no CLASSPATH)
 //        java TCC2601Main "3 + 4 * 2"
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
-public class TCC2601Main extends TCC2601ExprBaseVisitor<Double> {
+class TCC2601Main extends TCC2601ExprBaseVisitor<Double> {
 
     @Override
     public Double visitProg(TCC2601ExprParser.ProgContext ctx) {

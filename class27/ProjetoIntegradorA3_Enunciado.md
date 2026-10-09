@@ -24,8 +24,10 @@ stmt     → ID '=' expr ';'
          | 'while' '(' expr ')' block
          | 'print' '(' expr ')' ';'
 block    → '{' stmt* '}'
-expr     → expr ('+'|'-'|'*'|'/') term | term
-term     → NUM | ID | '(' expr ')'
+expr     → arit (('=='|'!='|'<'|'>'|'<='|'>=') arit)?
+arit     → arit ('+'|'-') term | term
+term     → term ('*'|'/') factor | factor
+factor   → NUM | ID | '(' expr ')'
 ```
 
 ### Funcionalidades obrigatórias

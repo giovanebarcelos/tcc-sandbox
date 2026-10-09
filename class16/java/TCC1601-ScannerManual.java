@@ -4,7 +4,7 @@
 // Espelho Java do TCC1601-ScannerManual.py (mesmas entradas e saídas).
 import java.util.*;
 
-public class TCC1601ScannerManual {
+class TCC1601ScannerManual {
 
     static class Token {
         String tipo, valor;

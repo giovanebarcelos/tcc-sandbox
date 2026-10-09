@@ -4,7 +4,7 @@
 // Espelho Java do TCC1501-FasesCompilador.py (mesmas entradas e saídas).
 import java.util.*;
 
-public class TCC1501FasesCompilador {
+class TCC1501FasesCompilador {
 
     // ---------- Fase 1: Análise Léxica (Scanner) ----------
     static class Token {

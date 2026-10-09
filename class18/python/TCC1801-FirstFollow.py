@@ -20,14 +20,14 @@ gramatica = {
     "F":  [["(", "E", ")"], ["id"]],
 }
 
-nao_terminais = set(gramatica.keys())
-terminais = set()
+# Listas (ordem da gramática / de aparição) para a saída sair sempre igual
+nao_terminais = list(gramatica)
+terminais = []
 for prods in gramatica.values():
     for prod in prods:
         for s in prod:
-            if s not in nao_terminais:
-                terminais.add(s)
-terminais.discard("ε")
+            if s not in nao_terminais and s != "ε" and s not in terminais:
+                terminais.append(s)
 
 
 def first_simbolo(s: str, first: dict, visitados: set) -> set:
@@ -92,26 +92,32 @@ def calcular_follow(first: dict) -> dict:
     return follow
 
 
+def fmt(conjunto: set) -> str:
+    """Conjunto na ordem dos terminais: {+, ε} (set do Python não tem ordem fixa)."""
+    return "{" + ", ".join(t for t in terminais + ["$", "ε"] if t in conjunto) + "}"
+
+
 if __name__ == "__main__":
     first = calcular_first()
     follow = calcular_follow(first)
 
     print("=== FIRST ===")
-    for nt in sorted(nao_terminais):
-        print(f"  First({nt}) = {sorted(first[nt])}")
+    for nt in nao_terminais:
+        print(f"  First({nt}) = {fmt(first[nt])}")
 
     print("\n=== FOLLOW ===")
-    for nt in sorted(nao_terminais):
-        print(f"  Follow({nt}) = {sorted(follow[nt])}")
+    for nt in nao_terminais:
+        print(f"  Follow({nt}) = {fmt(follow[nt])}")
 
-    print("\n=== Tabela LL(1) (parcial) ===")
+    # M[A, a] = A → α  se a ∈ First(α), ou se ε ∈ First(α) e a ∈ Follow(A)
+    print("\n=== Tabela LL(1) ===")
     print(f"{'':>6}", end="")
-    for t in sorted(terminais | {"$"}):
+    for t in terminais + ["$"]:
         print(f"{t:>12}", end="")
     print()
-    for nt in sorted(nao_terminais):
+    for nt in nao_terminais:
         print(f"{nt:>6}", end="")
-        for t in sorted(terminais | {"$"}):
+        for t in terminais + ["$"]:
             celula = ""
             for prod in gramatica[nt]:
                 f = first_de_sequencia(prod, first)

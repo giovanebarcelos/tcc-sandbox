@@ -1,7 +1,7 @@
 // TCC0901-ReconhecedorAnBn.java | Aula 09
 // Reconhece aⁿbⁿ usando contador — mostra que NÃO é autômato finito.
 // Espelho Java do TCC0901-ReconhecedorAnBn.py (mesmas entradas e saídas).
-public class TCC0901ReconhecedorAnBn {
+class TCC0901ReconhecedorAnBn {
 
     public static boolean reconheceAnbn(String palavra) {
         int i = 0;

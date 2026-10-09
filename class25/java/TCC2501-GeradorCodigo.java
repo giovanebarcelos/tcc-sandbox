@@ -3,7 +3,7 @@
 // Espelho Java do TCC2501-GeradorCodigo.py (mesma AST e saídas).
 import java.util.*;
 
-public class TCC2501GeradorCodigo {
+class TCC2501GeradorCodigo {
 
     // ---------- AST ----------
     static abstract class No {}

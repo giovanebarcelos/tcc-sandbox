@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """TCC2402-ErrorListener.py | Aula 24
 ErrorListener customizado para ANTLR (Python) — mensagens amigáveis com linha/coluna.
-Usa a gramática TCC2402-IfElse.g4 gerada com: antlr4 -Dlanguage=Python3 -visitor TCC2402-IfElse.g4
+Usa a gramática TCC2402IfElse.g4 gerada com: antlr4 -Dlanguage=Python3 -visitor TCC2402IfElse.g4
 """
 import sys
 

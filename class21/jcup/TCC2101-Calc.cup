@@ -1,26 +1,36 @@
 // TCC2101-Calc.cup | Aula 21
 // Parser JCup (CUP) para a calculadora.
-// Build: java -jar java-cup-11b.jar TCC2101-Calc.cup
-package tcc;
+// Build: veja TCC2101-Calc.flex (o scanner CalcLexer vem de lá).
+// Entrada: uma ou mais expressões terminadas em ';'  — ex.: 2 + 3 * (4 - 1);
 
 import java_cup.runtime.*;
 
 parser code {:
     public static void main(String[] args) throws Exception {
-        CalcLexer lexer = new CalcLexer(new java.io.FileReader(args[0]));
-        parser p = new parser(lexer);
-        Double result = (Double) p.parse().value;
-        System.out.println("Resultado: " + result);
+        String arquivo = args.length > 0 ? args[0] : "entrada.txt";
+        CalcLexer lexer = new CalcLexer(new java.io.FileReader(arquivo));
+        new parser(lexer).parse();
+    }
+
+    // Erro sintático com linha e coluna (o CUP chama este método)
+    public void syntax_error(Symbol s) {
+        System.err.println("Erro sintático na linha " + s.left + ", coluna " + s.right);
     }
 :}
 
 terminal PLUS, MINUS, TIMES, DIV, LPAREN, RPAREN, SEMI;
 terminal Double NUM;
 
+non terminal        calc, linha;
 non terminal Double expr, term, factor;
 
 precedence left PLUS, MINUS;
 precedence left TIMES, DIV;
+
+start with calc;
+
+calc  ::= calc linha | linha ;
+linha ::= expr:e SEMI {: System.out.println("Resultado: " + e); :} ;
 
 expr ::= expr:e1 PLUS term:e2 {: RESULT = e1 + e2; :}
        | expr:e1 MINUS term:e2 {: RESULT = e1 - e2; :}

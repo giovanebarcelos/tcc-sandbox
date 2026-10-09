@@ -3,7 +3,7 @@
 // Espelho Java do TCC2301-AST.py (mesma hierarquia e saídas).
 import java.util.*;
 
-public class TCC2301AST {
+class TCC2301AST {
 
     // ---------- AST ----------
     abstract static class No {

@@ -1,8 +1,8 @@
-// TCC2102-Calc.g4 | Aula 21
+// TCC2102Calc.g4 | Aula 21
 // Gramática ANTLR 4 da calculadora — mesma linguagem do JFlex+JCup.
 // Gera parser Java e Python (multi-alvo).
-// Build: antlr4 -Dlanguage=Python3 TCC2102-Calc.g4
-//        antlr4 -Dlanguage=Java     TCC2102-Calc.g4
+// Build: antlr4 -Dlanguage=Python3 TCC2102Calc.g4
+//        antlr4 -Dlanguage=Java     TCC2102Calc.g4
 grammar TCC2102Calc;
 
 calc : expr SEMI EOF ;

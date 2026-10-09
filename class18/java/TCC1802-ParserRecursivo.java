@@ -3,7 +3,7 @@
 // Espelho Java do TCC1802-ParserRecursivo.py (mesmas entradas e saídas).
 import java.util.*;
 
-public class TCC1802ParserRecursivo {
+class TCC1802ParserRecursivo {
 
     static class ParserRecursivo {
         List<String> tokens;

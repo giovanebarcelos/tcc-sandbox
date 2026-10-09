@@ -29,18 +29,23 @@ def reduzir(pilha: List[str]) -> bool:
     return False
 
 
+def fmt(lista: List[str]) -> str:
+    """Lista sem aspas: [E, +, id] (igual ao espelho Java)."""
+    return "[" + ", ".join(lista) + "]"
+
+
 def shift_reduce(entrada: List[str]) -> Tuple[bool, List[str]]:
     """Executa análise shift-reduce. Retorna (aceita, trace)."""
     pilha: List[str] = []
     entrada = entrada + ["$"]
     i = 0
     trace: List[str] = []
-    trace.append(f"Início: pilha={pilha}, entrada={entrada[i:]}")
+    trace.append(f"Início: pilha={fmt(pilha)}, entrada={fmt(entrada[i:])}")
 
     while True:
         # Tenta reduzir o máximo possível
         while reduzir(pilha):
-            trace.append(f"Reduce: pilha={pilha}, entrada={entrada[i:]}")
+            trace.append(f"Reduce: pilha={fmt(pilha)}, entrada={fmt(entrada[i:])}")
 
         # Verifica aceitação: pilha = [E], entrada = [$]
         if pilha == ["E"] and entrada[i] == "$":
@@ -51,7 +56,7 @@ def shift_reduce(entrada: List[str]) -> Tuple[bool, List[str]]:
         if entrada[i] != "$":
             pilha.append(entrada[i])
             i += 1
-            trace.append(f"Shift:  pilha={pilha}, entrada={entrada[i:]}")
+            trace.append(f"Shift:  pilha={fmt(pilha)}, entrada={fmt(entrada[i:])}")
         else:
             trace.append("REJEITA (entrada esgotada sem aceitação)")
             return False, trace
@@ -64,9 +69,10 @@ def tokenize(expr: str) -> List[str]:
         if expr[i].isspace():
             i += 1
             continue
-        if expr[i].isdigit():
+        if expr[i].isalnum() or expr[i] == "_":
+            # identificador (id, x, soma) ou número (42): tudo vira o terminal "id"
             tokens.append("id")
-            while i < len(expr) and expr[i].isdigit():
+            while i < len(expr) and (expr[i].isalnum() or expr[i] == "_"):
                 i += 1
         elif expr[i] in "+*()":
             tokens.append(expr[i])

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class TCC1101SimuladorAP {
+class TCC1101SimuladorAP {
 
     static class Resultado {
         boolean aceita;

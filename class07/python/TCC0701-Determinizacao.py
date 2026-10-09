@@ -21,30 +21,35 @@ def determinizar(afn_transicoes, q0, finais, alfabeto):
     afd_finais = set()
     estado_inicial = frozenset({q0})
     fila = [estado_inicial]
-    visitados = {estado_inicial}
+    visitados = [estado_inicial]  # lista: preserva a ordem de descoberta (BFS)
 
     while fila:
         C = fila.pop(0)
         if any(q in finais for q in C):
             afd_finais.add(C)
-        for a in alfabeto:
+        for a in sorted(alfabeto):
             D = frozenset({p for q in C for p in afn_transicoes.get((q, a), set())})
             if not D:
                 continue
             afd_transicoes[(C, a)] = D
             if D not in visitados:
-                visitados.add(D)
+                visitados.append(D)
                 fila.append(D)
 
     return afd_transicoes, estado_inicial, afd_finais, visitados
 
 
+def fmt(conjunto):
+    """Conjunto em ordem alfabética: {q0, q1} (set do Python não tem ordem fixa)."""
+    return "{" + ", ".join(sorted(conjunto)) + "}"
+
+
 if __name__ == "__main__":
     trans, q0_afd, finais_afd, estados = determinizar(afn, q0_afn, finais_afn, alfabeto)
     print(f"AFD: {len(estados)} estados, {len(finais_afd)} finais")
-    for C in sorted(estados, key=lambda s: ("" if any(q in finais_afn for q in C) else "z", sorted(C))):
+    for C in estados:
         final = " (final)" if C in finais_afd else ""
-        print(f"  {set(C)}{final}")
+        print(f"  {fmt(C)}{final}")
     print("\nTransições:")
-    for (C, a), D in sorted(trans.items(), key=lambda x: (sorted(x[0][0]), x[0][1])):
-        print(f"  δ({set(C)}, {a}) = {set(D)}")
+    for (C, a), D in trans.items():
+        print(f"  δ({fmt(C)}, {a}) = {fmt(D)}")

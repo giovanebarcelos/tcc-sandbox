@@ -1,11 +1,11 @@
 // TCC2402-ErrorListener.java | Aula 24
 // ErrorListener customizado para ANTLR (Java) — mensagens amigáveis com linha/coluna.
-// Usa a gramática TCC2402-IfElse.g4 gerada com: antlr4 -Dlanguage=Java -visitor TCC2402-IfElse.g4
+// Usa a gramática TCC2402IfElse.g4 gerada com: antlr4 -Dlanguage=Java -visitor TCC2402IfElse.g4
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.*;
 import java.util.*;
 
-public class TCC2402ErrorListener extends BaseErrorListener {
+class TCC2402ErrorListener extends BaseErrorListener {
 
     List<String> erros = new ArrayList<>();
 

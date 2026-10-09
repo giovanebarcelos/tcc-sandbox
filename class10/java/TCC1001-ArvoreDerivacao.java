@@ -5,7 +5,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class TCC1001ArvoreDerivacao {
+class TCC1001ArvoreDerivacao {
 
     static class No {
         String simbolo;
