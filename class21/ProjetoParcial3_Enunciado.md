@@ -60,7 +60,7 @@ y = 5
 | Stack | Arquivos | Build |
 |---|---|---|
 | **JFlex + JCup** | `calc.flex`, `calc.cup`, `Main.java` | `compilar_jflex_jcup.sh` |
-| **ANTLR 4** | `Calc.g4`, `Main.java` ou `main.py` | `antlr4.sh` |
+| **ANTLR 4** | `Calc.g4` com ações (Java, roda com `grun`) ou `Calc.g4` + `Main.java`/`main.py` com Visitor | `antlr4.sh` |
 | **PLY** | `calc.py` | `python3 calc.py` |
 
 > A stack escolhida aqui será usada também no **Projeto Integrador A3** (Aula 27).
