@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """TCC2102-CalcANTLR.py | Aula 21
-Driver Python da calculadora ANTLR (TCC2102Calc.g4) com Visitor — Slide 8b.
+Driver Python da calculadora ANTLR (TCC2102Calc.g4) com Visitor — Slide C6.
 Instalação: pip install antlr4-python3-runtime==4.13.1
 Build:      antlr4 -Dlanguage=Python3 -visitor -no-listener TCC2102Calc.g4
 Uso:        python3 TCC2102-CalcANTLR.py entrada.txt
