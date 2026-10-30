@@ -14,13 +14,23 @@ __pycache__/
 *BaseVisitor.java
 *Listener.java
 *Visitor.java
+*Lexer.py
+*Parser.py
+*Listener.py
+*Visitor.py
 
-# Exceção: os fontes didáticos seguem o padrão TCCnnss-Nome.java e são escritos
-# à mão. O ANTLR nomeia sua saída pela gramática (CalcParser.java, CalcVisitor.
-# java...), nunca com o prefixo TCC — então a negação abaixo não reabre nenhum
-# arquivo gerado. Sem ela, TCC2302-Visitor.java e TCC2402-ErrorListener.java
-# ficam fora do repositório e seus links nas Aulas 23 e 24 quebram na publicação.
-!TCC*.java
+# Saída do testar_g4.sh/.bat (Aula 21)
+build-g4*/
+.venv-g4/
+
+# Exceção: os fontes didáticos seguem o padrão TCCnnss-Nome.java/.py (com hífen) e
+# são escritos à mão. O ANTLR nomeia sua saída pela gramática, sem hífen (mesmo
+# quando ela tem prefixo TCC: TCC2103CalcAcoesParser.java) — então a negação
+# abaixo não reabre nenhum arquivo gerado. Sem ela, TCC2302-Visitor.java/.py e
+# TCC2402-ErrorListener.java/.py ficam fora do repositório e seus links nas
+# Aulas 23 e 24 quebram na publicação.
+!TCC*-*.java
+!TCC*-*.py
 
 # HTML gerado a partir dos .md (md2html.sh) — artefato de build, como nos demais cursos.
 # Exceção: material_zs/ traz .html originais do acervo 2025-02 (não são gerados aqui).
