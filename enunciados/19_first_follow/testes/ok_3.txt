@@ -1,0 +1,4 @@
+// "dangling else" (Dragon Book): ambígua, conflito em M[S2, e]
+S  -> i Ex t S S2 | a ;
+S2 -> e S | ε ;
+Ex -> b ;

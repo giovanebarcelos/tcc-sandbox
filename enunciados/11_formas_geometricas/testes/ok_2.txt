@@ -1,0 +1,4 @@
+shape telhado: triangle { base: 120, height: 60, color: #aa3300, position: 140, 40 }
+shape parede: square { side: 120, color: #ffdd88, position: 140, 100 }
+shape porta: rectangle { width: 30, height: 60, position: 185, 160 }
+shape sol: circle { radius: 25.5, color: #ffcc00, position: 60, 60 }

@@ -1,0 +1,4 @@
+# lido pelo testar.sh / testar.ps1
+MODO=completa
+MANTER='saída \[|idênticas'
+SUBST='s/ \([0-9]+ operações\)//'

@@ -1,0 +1,5 @@
+TABLE users (name, year, city);
+TABLE cursos (codigo, titulo, vagas);
+FROM users SELECT name, year WHERE year > 1973 AND name = 'Muttley';
+FROM users SELECT * WHERE city = 'Porto Alegre' OR year <= 2000 AND name != 'Dick' ORDER BY year DESC;
+FROM cursos SELECT titulo ORDER BY vagas;

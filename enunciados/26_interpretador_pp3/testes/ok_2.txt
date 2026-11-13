@@ -1,0 +1,8 @@
+for i = 1 to 15 {
+    if (i % 15 == 0) { print("FizzBuzz"); }
+    else if (i % 3 == 0) { print("Fizz"); }
+    else if (i % 5 == 0) { print("Buzz"); }
+    else { print(i); }
+}
+var media = (7.5 + 8 + 9.25) / 3;
+print("média:", media, "aprovado?", media >= 7 and not (media > 10));

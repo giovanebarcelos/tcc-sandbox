@@ -1,0 +1,10 @@
+machine M {
+  states: q0;
+  initial: q0;
+  accept: q0;
+  blank: _;
+  transitions {
+    q0, a -> q0, a, R;
+    q0, a -> q0, b, L;
+  }
+}

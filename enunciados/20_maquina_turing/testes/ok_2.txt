@@ -1,0 +1,21 @@
+// reconhece a^n b^n (n >= 0): marca um a com X e um b com Y por vez
+machine AnBn {
+  states: q0, q1, q2, q3, qf;
+  initial: q0;
+  accept: qf;
+  blank: _;
+  transitions {
+    q0, a -> q1, X, R;
+    q0, Y -> q3, Y, R;
+    q0, _ -> qf, _, S;
+    q1, a -> q1, a, R;
+    q1, Y -> q1, Y, R;
+    q1, b -> q2, Y, L;
+    q2, a -> q2, a, L;
+    q2, Y -> q2, Y, L;
+    q2, X -> q0, X, R;
+    q3, Y -> q3, Y, R;
+    q3, _ -> qf, _, S;
+  }
+  run: ab, aabb, ε, aab, abab, ba;
+}

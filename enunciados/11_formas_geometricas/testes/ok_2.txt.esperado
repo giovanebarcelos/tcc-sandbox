@@ -1,0 +1,6 @@
+telhado    triangle   área =    3600.00   perímetro =   289.71   cor = #aa3300   posição = (140, 40)
+parede     square     área =   14400.00   perímetro =   480.00   cor = #ffdd88   posição = (140, 100)
+porta      rectangle  área =    1800.00   perímetro =   180.00   cor = #888888   posição = (185, 160)
+sol        circle     área =    2042.82   perímetro =   160.22   cor = #ffcc00   posição = (60, 60)
+4 forma(s), área total = 21842.82
+Desenho SVG gravado em build/out/ok_2.txt.svg

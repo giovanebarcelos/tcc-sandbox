@@ -12,6 +12,7 @@ Este repositório será publicado em `github.com/giovanebarcelos/tcc-sandbox`. O
 ```
 repository/
   class01/ ... class28/    # Código por aula (Python + Java + diagramas + .jff/.flex/.cup/.g4)
+  enunciados/              # 31 enunciados de compiladores + casos de teste (testar.sh/.ps1)
   ferramentas/             # Jars e lançadores (JFLAP, JFlex, CUP, ANTLR)
   livros/                  # Bibliografia digital (20 arquivos)
 ```
@@ -52,6 +53,23 @@ repository/
 | 28 | Tendências e Encerramento | — | — | — | — | — | — | — | Godbolt |
 
 **Totais:** 28 pares Python+Java (paridade completa), 3 `.flex`, 1 `.cup`, 5 `.g4`, 3 `.jff`, 8 `.mmd`, 3 enunciados de projeto (PP1, PP2, PP3/A3).
+
+---
+
+## Enunciados de compiladores (em `enunciados/`)
+
+31 enunciados de compiladores para os alunos desenvolverem, do primeiro scanner (01) até um mini-compilador que gera assembly x86-64 (31). Cada pasta traz o `ENUNCIADO.md` e os casos de teste em `testes/` (entradas `.txt`, saídas `.esperado` e erros `.erro`).
+
+- Índice completo, níveis de dificuldade, aulas relacionadas e regras gerais: [`enunciados/README.md`](enunciados/README.md)
+- Corretor automático dos casos de teste: `enunciados/testar.sh` (Linux/macOS) e `enunciados/testar.ps1` (Windows)
+
+| Faixa | Tema |
+|---|---|
+| 01–03 | Scanners (léxico) |
+| 04–13, 16–17, 21–23 | Parsers e tradutores (calculadora, JSON, SQL, HTML, SVG, BBCode, templates, CSV, INI…) |
+| 14–15, 18–20 | Teoria aplicada (AFD → JFLAP, ER → AFN de Thompson, FIRST/FOLLOW/LL(1), Máquina de Turing) |
+| 24–29 | Back-end e semântica (3 endereços, otimização, interpretador PP3, escopo, tipos, recuperação de erros) |
+| 30–31 | Projeto completo: mini-compilador Lingo → C e → assembly x86-64 |
 
 ---
 

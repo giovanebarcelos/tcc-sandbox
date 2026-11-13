@@ -1,0 +1,9 @@
+Programa 'fatorial': análise semântica concluída sem erros.
+Tabela de símbolos:
+  nome         tipo   linha  usos
+  n            int    2      6
+  fat          int    2      4
+  i            int    2      5
+  taxa         float  3      1
+  naoUsada     float  3      0
+Aviso: variável 'naoUsada' declarada e nunca usada

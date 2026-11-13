@@ -1,0 +1,8 @@
+x = 10;
+y = x * ;              // erro 1: expressão incompleta
+print x + 1;
+z = (x + 2;            // erro 2: falta ')'
+w = 5;
+print w * w;
+print 7 7;             // erro 3: falta operador
+print x - w;

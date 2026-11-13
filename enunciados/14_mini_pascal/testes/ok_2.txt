@@ -1,0 +1,22 @@
+program fatorial;
+int n, fat, i;
+float taxa, naoUsada;
+begin
+    read(n);
+    fat = 1;
+    i = 1;
+    taxa = 0.5 * n;
+    while i <= n do {
+        fat = fat * i;
+        i = i + 1;
+    }
+    write(fat);
+    if n == 0 then
+        write(0);
+    if n != 0 then {
+        if n > 0 then
+            write(1);
+        else
+            write(-1);
+    }
+end

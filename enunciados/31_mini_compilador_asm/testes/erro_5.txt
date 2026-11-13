@@ -1,0 +1,2 @@
+// return fora de uma função
+return 1;

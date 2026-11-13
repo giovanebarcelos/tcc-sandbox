@@ -1,0 +1,1 @@
+shape c: circle { color: #00ff00, position: 1, 2 }

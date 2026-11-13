@@ -1,0 +1,13 @@
+(global)
+  app                    = Compilador TCC                       (texto)
+[servidor]
+  servidor.host          = localhost                            (texto)
+  servidor.porta         = 8080                                 (inteiro)
+  servidor.debug         = true                                 (booleano)
+  servidor.url           = http://localhost:8080/api            (texto)
+[banco]
+  banco.nome             = tcc                                  (texto)
+  banco.usuario          =   admin                              (texto)
+  banco.url              = jdbc:postgresql://localhost/tcc      (texto)
+  banco.timeout          = 2.5                                  (real)
+2 seção(ões), 9 chave(s)

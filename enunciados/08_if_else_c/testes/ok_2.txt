@@ -1,0 +1,6 @@
+// blocos, expressões e o "dangling else"
+a = 7;
+b = a * 2 - 4;
+if (b >= 10) { c = a + b; print(c); }
+if (a == 7) if (b > 100) print(a); else print(b);   // o else pertence ao if (b > 100)
+if (a != 7) print(1); else { print(a / 2); print(a - b); }

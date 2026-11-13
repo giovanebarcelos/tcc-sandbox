@@ -1,0 +1,7 @@
+program p;
+int x;
+float f;
+begin
+    f = 2.5;
+    x = f * 2;
+end

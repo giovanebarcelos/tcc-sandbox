@@ -1,0 +1,7 @@
+Programa 'calculadora': análise semântica concluída sem erros.
+Tabela de símbolos:
+  nome         tipo   linha  usos
+  x            int    2      8
+  y            int    2      4
+  resultado    int    2      3
+  media        float  3      2

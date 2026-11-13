@@ -1,0 +1,9 @@
+# variáveis e precedência
+x = 3;
+y = 2 ^ 3 ^ 2;        # associativo à direita: 2^(3^2) = 512
+print y;
+print -2 ^ 2;         # -(2^2) = -4
+z = (x + 1) * 2.5 - 10 % 4;
+print z / 2;
+x = x + 1;            # redefinição
+print x * x;

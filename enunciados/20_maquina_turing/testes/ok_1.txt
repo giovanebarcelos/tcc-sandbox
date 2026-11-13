@@ -1,0 +1,16 @@
+// soma 1 a um número binário
+machine Incrementa {
+  states: q0, q1, qf;
+  initial: q0;
+  accept: qf;
+  blank: _;
+  transitions {
+    q0, 0 -> q0, 0, R;
+    q0, 1 -> q0, 1, R;
+    q0, _ -> q1, _, L;
+    q1, 1 -> q1, 0, L;
+    q1, 0 -> qf, 1, S;
+    q1, _ -> qf, 1, S;
+  }
+  run: 1011, 111, 0;
+}

@@ -1,0 +1,7 @@
+machine M {
+  states: q0;
+  initial: q0;
+  accept: q1;
+  blank: _;
+  transitions { }
+}

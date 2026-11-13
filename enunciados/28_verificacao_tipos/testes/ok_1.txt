@@ -1,0 +1,13 @@
+int x = 10;
+float media = x / 4;          // int / int = int (2!) e depois alargado para float
+float y = x / 4.0;            // x é alargado: i2f(x) / 4.0
+string s = "y = " + y;        // concatenação com conversão str(...)
+bool ok = y >= 2.5 && !(x == 0);
+if (ok) {
+    print(s);
+    int x = 3;                // outro x, no escopo do bloco
+    print(x * 2.0);
+} else {
+    print("não ok");
+}
+while (x > 0) { x = x - 3; }

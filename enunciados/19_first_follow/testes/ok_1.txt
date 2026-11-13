@@ -1,0 +1,6 @@
+// gramática de expressões SEM recursão à esquerda (clássica, LL(1))
+E  -> T E' ;
+E' -> + T E' | ε ;
+T  -> F T' ;
+T' -> * F T' | ε ;
+F  -> ( E ) | id ;

@@ -1,0 +1,14 @@
+MT 'AnBn': 5 estado(s), 11 transição(ões), inicial q0, aceitação [qf], branco '_'
+Rastro de 'ab':
+    [q0]ab
+    X[q1]b
+    [q2]XY
+    X[q0]Y
+    XY[q3]_
+    XY[qf]_
+  ab       -> ACEITA   parou em qf   após   5 passo(s); fita final: XY
+  aabb     -> ACEITA   parou em qf   após  13 passo(s); fita final: XXYY
+  ε        -> ACEITA   parou em qf   após   1 passo(s); fita final: ε
+  aab      -> REJEITA  parou em q1   após   7 passo(s); fita final: XXY
+  abab     -> REJEITA  parou em q3   após   4 passo(s); fita final: XYab
+  ba       -> REJEITA  parou em q0   após   0 passo(s); fita final: ba

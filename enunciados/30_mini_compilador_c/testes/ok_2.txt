@@ -1,0 +1,28 @@
+// números primos e conjectura de Collatz
+func int primo(int n) {
+    if (n < 2) { return 0; }
+    int d = 2;
+    while (d * d <= n) {
+        if (n % d == 0) { return 0; }
+        d = d + 1;
+    }
+    return 1;
+}
+func int collatz(int n) {
+    int passos = 0;
+    while (n != 1) {
+        if (n % 2 == 0) { n = n / 2; } else { n = 3 * n + 1; }
+        passos = passos + 1;
+    }
+    return passos;
+}
+int k = 2;
+int qtd = 0;
+while (k <= 50) {
+    if (primo(k) == 1) { qtd = qtd + 1; }
+    k = k + 1;
+}
+print("primos até 50:", qtd);
+print("collatz(27) =", collatz(27), "passos");
+float x = 1.0;
+if (qtd > 10 && !(x == 0.0)) { print("x/3 =", x / 3); }

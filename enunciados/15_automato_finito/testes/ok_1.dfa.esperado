@@ -1,0 +1,11 @@
+AFD 'EndWithA': 2 estado(s), alfabeto [a, b], inicial q0, finais [q1]
+  δ         a       b       
+→ q0        q1      q0      
+ *q1        q1      q0      
+Simulação:
+  a          ACEITA    q0 → q1
+  aab        REJEITA   q0 → q1 → q1 → q0
+  abab       REJEITA   q0 → q1 → q0 → q1 → q0
+  ba         ACEITA    q0 → q0 → q1
+  ε          REJEITA   q0
+Arquivo JFLAP gravado em build/out/ok_1.dfa.jff  (abra com ferramentas/jflap.sh)

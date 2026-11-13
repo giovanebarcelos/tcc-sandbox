@@ -1,0 +1,3 @@
+# lido pelo testar.sh / testar.ps1
+MODO=completa
+IGNORAR='^Arquivo JFLAP gravado'

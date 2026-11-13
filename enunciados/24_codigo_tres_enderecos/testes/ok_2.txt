@@ -1,0 +1,11 @@
+// curto-circuito: se i == 7 já for verdadeiro, i % 2 == 0 nem é avaliado
+i = 0;
+soma = 0;
+while (i < 10 && soma <= 20) {
+    if (i == 7 || i % 2 == 0) soma = soma + i * 2;
+    else soma = soma - 1;
+    i = i + 1;
+}
+print(soma);
+par = (soma % 2 == 0);
+print(par);

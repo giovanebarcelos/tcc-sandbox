@@ -1,0 +1,6 @@
+program teste_erros;
+int x, y;
+float @valor;  // ERRO LÉXICO: caractere '@' inválido
+begin
+    read(x);
+end

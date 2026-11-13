@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <title>
+      "Parser Example"
+  <body class="anyClass" id="MyPage">
+    <h1>
+      "Welcome Muttley"
+    <p>
+      "My example using"
+      <a href="https://jflex.de/">
+        "JFlex"
+      "."
+Resumo: 7 elemento(s), 5 texto(s); título: "Parser Example"

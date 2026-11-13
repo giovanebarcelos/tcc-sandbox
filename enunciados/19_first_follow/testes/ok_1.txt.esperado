@@ -1,0 +1,34 @@
+Gramática: 5 não-terminal(is), 5 terminal(is), símbolo inicial E
+  E    -> T E'
+  E'   -> + T E' | ε
+  T    -> F T'
+  T'   -> * F T' | ε
+  F    -> ( E ) | id
+Anuláveis: E', T'
+FIRST:
+  E    = { (, id }
+  E'   = { + }
+  T    = { (, id }
+  T'   = { * }
+  F    = { (, id }
+FOLLOW:
+  E    = { $, ) }
+  E'   = { $, ) }
+  T    = { $, ), + }
+  T'   = { $, ), + }
+  F    = { $, ), *, + }
+Tabela LL(1):
+  M[E, (] = E -> T E'
+  M[E, id] = E -> T E'
+  M[E', $] = E' -> ε
+  M[E', )] = E' -> ε
+  M[E', +] = E' -> + T E'
+  M[T, (] = T -> F T'
+  M[T, id] = T -> F T'
+  M[T', $] = T' -> ε
+  M[T', )] = T' -> ε
+  M[T', *] = T' -> * F T'
+  M[T', +] = T' -> ε
+  M[F, (] = F -> ( E )
+  M[F, id] = F -> id
+=> A gramática é LL(1).

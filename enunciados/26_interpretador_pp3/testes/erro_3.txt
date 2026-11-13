@@ -1,0 +1,2 @@
+var x = "texto";
+print(x * 2);

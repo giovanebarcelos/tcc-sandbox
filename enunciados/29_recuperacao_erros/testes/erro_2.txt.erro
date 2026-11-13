@@ -1,0 +1,4 @@
+Erro (recuperação): 3 erro(s) encontrado(s) — a análise continuou após cada um:
+  [2:7] erro léxico: caractere inválido '#' (descartado)
+  [2:9] erro sintático: extraneous input '2' expecting ';'
+  [4:7] erro léxico: caractere inválido '@' (descartado)

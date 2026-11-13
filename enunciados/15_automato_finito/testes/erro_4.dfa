@@ -1,0 +1,8 @@
+automaton X {
+  states: q0;
+  alphabet: a;
+  initial: q0;
+  final: q0;
+  transitions: { q0, a -> q0; }
+  test: aa, abc;
+} end

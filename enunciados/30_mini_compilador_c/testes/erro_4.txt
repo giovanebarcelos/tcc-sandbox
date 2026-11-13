@@ -1,0 +1,2 @@
+int z = 1;
+if (z) { print(z); }

@@ -1,0 +1,8 @@
+// desenha um quadrado 3x3 e depois uma escada
+LOOP 4 TIMES { MOVE 3 RIGHT }
+REPORT
+LOOP 2 TIMES {
+    LOOP 2 TIMES { MOVE }
+    RIGHT MOVE LEFT
+}
+REPORT

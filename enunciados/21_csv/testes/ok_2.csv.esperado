@@ -1,0 +1,11 @@
+| codigo | disciplina                          | creditos |
+|--------|-------------------------------------|----------|
+| TCC    | Teoria da Computação e Compiladores | 8        |
+| IA     | Inteligência Artificial             | 4        |
+2 registro(s), 3 coluna(s)
+  coluna 'creditos': n=2 soma=12.00 média=6.00 mín=4.00 máx=8.00
+JSON:
+[
+  {"codigo": "TCC", "disciplina": "Teoria da Computação e Compiladores", "creditos": 8},
+  {"codigo": "IA", "disciplina": "Inteligência Artificial", "creditos": 4}
+]

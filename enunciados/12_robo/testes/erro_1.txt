@@ -1,0 +1,8 @@
+MOVE
+LEFT
+LOOP 3 TIMES
+    MOVE
+    RIGHT
+    MOVE
+}
+RIGHT

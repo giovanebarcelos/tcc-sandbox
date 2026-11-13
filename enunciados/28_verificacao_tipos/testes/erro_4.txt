@@ -1,0 +1,2 @@
+bool b = true;
+b = 1;

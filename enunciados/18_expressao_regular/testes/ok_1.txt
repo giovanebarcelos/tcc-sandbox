@@ -1,0 +1,4 @@
+(a|b)*abb : abb, aabb, babb, ab, abba, ε ;
+a+b?c*    : a, aaab, abccc, b, ac, aabcb ;
+(0|1(01*0)*1)* : 0, 11, 110, 1001, 111, 10 ;
+ε|ab : ε, ab, a ;

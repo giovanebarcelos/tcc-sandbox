@@ -1,0 +1,28 @@
+=== Programa tipado (conversões explícitas) ===
+    int x = 10;
+    float media = i2f((x / 4));
+    float y = (i2f(x) / 4.0);
+    string s = ("y = " + str(y));
+    bool ok = ((y >= 2.5) && !(x == 0));
+    if (ok)
+    {
+        print(s);
+        int x = 3;
+        print((i2f(x) * 2.0));
+    }
+    else
+    {
+        print("não ok");
+    }
+    while (x > 0)
+    {
+        x = (x - 3);
+    }
+=== Tabela de símbolos ===
+  x : int
+  media : float
+  y : float
+  s : string
+  ok : bool
+  x (bloco, linha 8) : int
+Verificação de tipos: OK — 31 expressão(ões) tipada(s), 4 conversão(ões) implícita(s) inserida(s)

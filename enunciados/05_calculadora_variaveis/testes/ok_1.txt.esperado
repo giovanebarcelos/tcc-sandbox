@@ -1,0 +1,12 @@
+x <- 3
+y <- 512
+print: 512
+print: -4
+z <- 8
+print: 4
+x <- 4
+print: 16
+Tabela de símbolos:
+  x = 4
+  y = 512
+  z = 8

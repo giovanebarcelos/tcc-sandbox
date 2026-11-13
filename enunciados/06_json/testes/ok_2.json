@@ -1,0 +1,2 @@
+{"aluno": {"nome": "Dick Vigarista", "ra": null, "notas": [], "endereco": {}},
+ "turmas": [{"id": 1, "tags": ["tcc", "6M"]}, {"id": 2, "media": -7.5e-1}], "escape": "linha\n\"aspas\""}

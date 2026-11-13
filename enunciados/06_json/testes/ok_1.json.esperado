@@ -1,0 +1,11 @@
+{
+  "name": "Muttley",
+  "age": 36,
+  "grades": [
+    100,
+    30.6,
+    90.8
+  ],
+  "passed": true
+}
+Estatísticas: {objeto=1, array=1, STRING=1, NUMBER=4, BOOL=1, NULL=0}, profundidade máxima = 2

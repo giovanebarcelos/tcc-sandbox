@@ -1,0 +1,14 @@
+MT 'Incrementa': 3 estado(s), 6 transição(ões), inicial q0, aceitação [qf], branco '_'
+Rastro de '1011':
+    [q0]1011
+    1[q0]011
+    10[q0]11
+    101[q0]1
+    1011[q0]_
+    101[q1]1_
+    10[q1]10_
+    1[q1]000_
+    1[qf]100_
+  1011     -> ACEITA   parou em qf   após   8 passo(s); fita final: 1100
+  111      -> ACEITA   parou em qf   após   8 passo(s); fita final: 1000
+  0        -> ACEITA   parou em qf   após   3 passo(s); fita final: 1

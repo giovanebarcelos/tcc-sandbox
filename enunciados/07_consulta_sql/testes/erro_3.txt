@@ -1,0 +1,2 @@
+TABLE users (name, year);
+FROM users SELECT name, idade WHERE year > 1973;

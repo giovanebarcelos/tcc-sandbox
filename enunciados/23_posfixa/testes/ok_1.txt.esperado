@@ -1,0 +1,29 @@
+Expressão 1: ((2 + 3) * 4)
+  pós-fixa : 2 3 + 4 *
+  pré-fixa : * + 2 3 4
+  pilha    : [2] [2, 3] [5] [5, 4] [20]
+  valor    = 20
+Expressão 2: (2 + (3 * 4))
+  pós-fixa : 2 3 4 * +
+  pré-fixa : + 2 * 3 4
+  pilha    : [2] [2, 3] [2, 3, 4] [2, 12] [14]
+  valor    = 14
+Expressão 3: ((10 - 4) - 3)
+  pós-fixa : 10 4 - 3 -
+  pré-fixa : - - 10 4 3
+  pilha    : [10] [10, 4] [6] [6, 3] [3]
+  valor    = 3
+Expressão 4: (2 ^ (3 ^ 2))
+  pós-fixa : 2 3 2 ^ ^
+  pré-fixa : ^ 2 ^ 3 2
+  pilha    : [2] [2, 3] [2, 3, 2] [2, 9] [512]
+  valor    = 512
+Expressão 5: (((1 + 2) * (3 + 4)) / 7)
+  pós-fixa : 1 2 + 3 4 + * 7 /
+  pré-fixa : / * + 1 2 + 3 4 7
+  pilha    : [1] [1, 2] [3] [3, 3] [3, 3, 4] [3, 7] [21] [21, 7] [3]
+  valor    = 3
+Expressão 6: ((a * (b + c)) - (d / e))
+  pós-fixa : a b c + * d e / -
+  pré-fixa : - * a + b c / d e
+  (contém variáveis: só traduzida, não avaliada)

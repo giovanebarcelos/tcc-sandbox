@@ -1,0 +1,2 @@
+int y = 2; /* comentário que nunca fecha
+print(y);

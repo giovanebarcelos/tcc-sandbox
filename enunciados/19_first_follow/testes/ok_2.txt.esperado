@@ -1,0 +1,21 @@
+Gramática: 3 não-terminal(is), 5 terminal(is), símbolo inicial E
+  E    -> E + T | T
+  T    -> T * F | F
+  F    -> ( E ) | id
+Anuláveis: (nenhum)
+FIRST:
+  E    = { (, id }
+  T    = { (, id }
+  F    = { (, id }
+FOLLOW:
+  E    = { $, ), + }
+  T    = { $, ), *, + }
+  F    = { $, ), *, + }
+Tabela LL(1):
+  M[E, (] = E -> E + T  /  E -> T   <-- CONFLITO
+  M[E, id] = E -> E + T  /  E -> T   <-- CONFLITO
+  M[T, (] = T -> T * F  /  T -> F   <-- CONFLITO
+  M[T, id] = T -> T * F  /  T -> F   <-- CONFLITO
+  M[F, (] = F -> ( E )
+  M[F, id] = F -> id
+=> A gramática NÃO é LL(1): 4 célula(s) com conflito (recursão à esquerda? fatoração? ambiguidade?).

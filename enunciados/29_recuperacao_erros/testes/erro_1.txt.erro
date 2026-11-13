@@ -1,0 +1,4 @@
+Erro (recuperação): 3 erro(s) encontrado(s) — a análise continuou após cada um:
+  [2:9] erro sintático: mismatched input ';' expecting {'(', ID, NUM}
+  [4:11] erro sintático: missing ')' at ';'
+  [7:9] erro sintático: extraneous input '7' expecting ';'

@@ -1,0 +1,45 @@
+Fórmula 1: (p -> q)
+  p q | (p -> q)
+  V V | V
+  V F | F
+  F V | V
+  F F | V
+  => CONTINGÊNCIA (3 de 4 linha(s) verdadeira(s))
+Fórmula 2: ((p -> q) <-> (!q -> !p))
+  p q | ((p -> q) <-> (!q -> !p))
+  V V | V
+  V F | V
+  F V | V
+  F F | V
+  => TAUTOLOGIA (4 de 4 linha(s) verdadeira(s))
+Fórmula 3: (p & !p)
+  p | (p & !p)
+  V | F
+  F | F
+  => CONTRADIÇÃO (0 de 2 linha(s) verdadeira(s))
+Fórmula 4: (p | (q & r))
+  p q r | (p | (q & r))
+  V V V | V
+  V V F | V
+  V F V | V
+  V F F | V
+  F V V | V
+  F V F | F
+  F F V | F
+  F F F | F
+  => CONTINGÊNCIA (5 de 8 linha(s) verdadeira(s))
+Fórmula 5: (a -> (b -> c))
+  a b c | (a -> (b -> c))
+  V V V | V
+  V V F | F
+  V F V | V
+  V F F | V
+  F V V | V
+  F V F | V
+  F F V | V
+  F F F | V
+  => CONTINGÊNCIA (7 de 8 linha(s) verdadeira(s))
+Fórmula 6: (V | F)
+  | (V | F)
+  | V
+  => TAUTOLOGIA (1 de 1 linha(s) verdadeira(s))

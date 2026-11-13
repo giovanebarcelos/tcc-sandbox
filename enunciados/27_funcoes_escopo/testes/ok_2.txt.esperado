@@ -1,0 +1,15 @@
+Tabela de funções:
+  mostra()  [linha 3]
+  sombra(x)  [linha 4]
+  incrementa()  [linha 10]
+  par(n)  [linha 16]
+  impar(n)  [linha 17]
+Análise semântica: OK. Execução:
+x global = 10
+parâmetro x = 3
+x do bloco = 99
+parâmetro x de novo = 3
+sombra(3) devolveu 6
+x global = 12
+par(10)? 1  impar(7)? 1
+Profundidade máxima da pilha de chamadas: 11

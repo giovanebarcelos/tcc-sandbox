@@ -1,0 +1,1 @@
+Erro semântico [6:5]: atribuição de float para a variável int 'x' (perda de precisão)

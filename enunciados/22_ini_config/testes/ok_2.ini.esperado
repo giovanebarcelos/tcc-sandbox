@@ -1,0 +1,6 @@
+[caminhos]
+  caminhos.raiz          = /opt/tcc                             (texto)
+  caminhos.bin           = /opt/tcc/bin                         (texto)
+  caminhos.jflex         = /opt/tcc/bin/jflex                   (texto)
+  caminhos.vazio         =                                      (vazio)
+1 seção(ões), 4 chave(s)

@@ -1,0 +1,42 @@
+=== Original (64 nós) ===
+    n = 5;
+    i = 0;
+    s = 0;
+    while (i < n)
+        {
+            s = (s + (i * 1));
+            i = (i + 1);
+        }
+    t = ((s * 0) + (n * 2));
+    if (n > 10)
+        print(999);
+    else
+        print(t);
+    while (0)
+        print(1);
+    print(((s - s) + (2 * s)));
+    print((!!(i == n) && 1));
+=== Otimizado (40 nós) ===
+    n = 5;
+    i = 0;
+    s = 0;
+    while (i < 5)
+        {
+            s = (s + i);
+            i = (i + 1);
+        }
+    t = 10;
+    print(10);
+    print((s + s));
+    print(((i == 5) && 1));
+=== Otimizações aplicadas ===
+  5× propagação de constante
+  5× simplificação algébrica
+  3× dobramento de constantes
+  1× código morto eliminado (if com condição constante)
+  1× código morto eliminado (while com condição falsa)
+  1× redução de força (x*2 -> x+x)
+=== Execução ===
+  original : saída [10, 20, 1] (32 operações)
+  otimizado: saída [10, 20, 1] (19 operações)
+  saídas idênticas? sim

@@ -1,0 +1,7 @@
+Tabela de funções:
+  fat(n)  [linha 1]
+  fib(n)  [linha 5]
+  mdc(a, b)  [linha 9]
+Análise semântica: OK. Execução:
+5! = 120  fib(15) = 610  mdc(48,18) = 6
+Profundidade máxima da pilha de chamadas: 15

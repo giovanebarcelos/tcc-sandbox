@@ -1,0 +1,15 @@
+# número de 'a' par; o estado 'lixo' é inalcançável e a tabela é parcial
+automaton EvenAs {
+    states: par, impar, lixo;
+    alphabet: a, b;
+    initial: par;
+    final: par;
+    transitions: {
+        par, a -> impar;
+        par, b -> par;
+        impar, a -> par;
+        impar, b -> impar;
+        lixo, a -> lixo;
+    }
+    test: ε, aa, aba, bbbab;
+} end

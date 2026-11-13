@@ -1,0 +1,16 @@
+| nome            | idade | cidade       | nota |
+|-----------------|-------|--------------|------|
+| Muttley         | 36    | Porto Alegre | 8.5  |
+| Vigarista, Dick | 42    | São Paulo    | 7    |
+| Penélope        | 29    |              | 9.25 |
+| Ele disse "olá" |       | Canoas       | 6    |
+4 registro(s), 4 coluna(s)
+  coluna 'idade': n=3 soma=107.00 média=35.67 mín=29.00 máx=42.00
+  coluna 'nota': n=4 soma=30.75 média=7.69 mín=6.00 máx=9.25
+JSON:
+[
+  {"nome": "Muttley", "idade": 36, "cidade": "Porto Alegre", "nota": 8.5},
+  {"nome": "Vigarista, Dick", "idade": 42, "cidade": "São Paulo", "nota": 7},
+  {"nome": "Penélope", "idade": 29, "cidade": null, "nota": 9.25},
+  {"nome": "Ele disse \"olá\"", "idade": null, "cidade": "Canoas", "nota": 6}
+]

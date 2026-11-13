@@ -1,0 +1,13 @@
+// nomes da biblioteca C viram lingo_<nome> no assembly; float, negação e curto-circuito
+func int printf(int a) { return a * 2; }
+func float area(float r) { return 3.14159 * r * r; }
+func int max(int a, int b) {
+    if (a > b) { return a; } else { return b; }
+}
+float r = 2;
+print("area(2) =", area(r), "e printf(21) =", printf(21));
+print("max(-5, 3) =", max(-5, 3), "| -r =", -r);
+int i = 0;
+while (i < 3 && !(area(1.0) < 3.0)) { i = i + 1; }
+print("i =", i, "| 7 / 2 =", 7 / 2, "| -7 % 3 =", -7 % 3, "| 7 / 2.0 =", 7 / 2.0);
+if (r >= 2.0 && r != 3.0) { print("r >= 2.0 ok, 100% assembly"); }

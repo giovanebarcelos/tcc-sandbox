@@ -1,0 +1,20 @@
+Gramática: 3 não-terminal(is), 5 terminal(is), símbolo inicial S
+  S    -> i Ex t S S2 | a
+  S2   -> e S | ε
+  Ex   -> b
+Anuláveis: S2
+FIRST:
+  S    = { a, i }
+  S2   = { e }
+  Ex   = { b }
+FOLLOW:
+  S    = { $, e }
+  S2   = { $, e }
+  Ex   = { t }
+Tabela LL(1):
+  M[S, a] = S -> a
+  M[S, i] = S -> i Ex t S S2
+  M[S2, $] = S2 -> ε
+  M[S2, e] = S2 -> e S  /  S2 -> ε   <-- CONFLITO
+  M[Ex, b] = Ex -> b
+=> A gramática NÃO é LL(1): 1 célula(s) com conflito (recursão à esquerda? fatoração? ambiguidade?).

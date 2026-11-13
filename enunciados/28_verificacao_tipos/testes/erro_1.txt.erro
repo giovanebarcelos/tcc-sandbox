@@ -1,0 +1,1 @@
+Erro semântico [1:9]: tipos incompatíveis na inicialização de 'z': esperado int, encontrado float (estreitamento float -> int não é permitido)

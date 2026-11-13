@@ -1,0 +1,19 @@
+program calculadora;
+int x, y, resultado;
+float media;
+begin
+    read(x);
+    read(y);
+    resultado = x + y;
+    write(resultado);
+    media = resultado / 2;
+    write(media);
+    if x > y then
+        write(x);
+    else
+        write(y);
+    while x < 10 do {
+        x = x + 1;
+        write(x);
+    }
+end

@@ -1,0 +1,4 @@
+x = 2 * 3 + 4;          // dobramento: 10
+y = x * 1 + 0;          // propagação + álgebra: 10
+z = (y - 5) * (x / 2);  // tudo constante: 25
+print(z);

@@ -1,0 +1,4 @@
+rect1      rectangle  área =    5000.00   perímetro =   300.00   cor = #ff0000   posição = (10, 20)
+circle1    circle     área =    2827.43   perímetro =   188.50   cor = #00ff00   posição = (50, 50)
+2 forma(s), área total = 7827.43
+Desenho SVG gravado em build/out/ok_1.txt.svg

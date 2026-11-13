@@ -1,0 +1,9 @@
+REPORT: (0, 0) N
+REPORT: (2, 4) N
+Posição final: (2, 4) virado para N — 18 passo(s)
+Mapa (S = início, R = robô, * = caminho):
+  . * R .
+  * * * *
+  * * . *
+  * . . *
+  S * * *

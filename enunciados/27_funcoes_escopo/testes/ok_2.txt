@@ -1,0 +1,18 @@
+// escopo: global x, parâmetro x e local x são variáveis diferentes
+var x = 10;
+func mostra() { print("x global =", x); }
+func sombra(x) {
+    print("parâmetro x =", x);
+    { var x = 99; print("x do bloco =", x); }
+    print("parâmetro x de novo =", x);
+    return x * 2;
+}
+func incrementa() { x = x + 1; }      // altera a global
+mostra();
+print("sombra(3) devolveu", sombra(3));
+incrementa();
+incrementa();
+mostra();
+func par(n) { if (n == 0) { return 1; } return impar(n - 1); }   // recursão mútua
+func impar(n) { if (n == 0) { return 0; } return par(n - 1); }
+print("par(10)?", par(10), " impar(7)?", impar(7));

@@ -1,0 +1,8 @@
+-- tabela users [name, year, city]
+-- tabela cursos [codigo, titulo, vagas]
+-- consulta 1:
+SELECT name, year FROM users WHERE (year > 1973 AND name = 'Muttley');
+-- consulta 2:
+SELECT * FROM users WHERE (city = 'Porto Alegre' OR (year <= 2000 AND name <> 'Dick')) ORDER BY year DESC;
+-- consulta 3:
+SELECT titulo FROM cursos ORDER BY vagas ASC;

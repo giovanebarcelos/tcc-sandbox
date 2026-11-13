@@ -1,0 +1,4 @@
+# lido pelo testar.sh / testar.ps1
+MODO=execucao
+MANTER='^(print:|Variáveis ao final)'
+SUBST='s/ +\([0-9]+ instruções executadas\)//'

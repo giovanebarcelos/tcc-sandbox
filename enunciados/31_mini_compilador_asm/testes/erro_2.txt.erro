@@ -1,0 +1,1 @@
+Erro semântico [2:23]: variável 'x' não declarada na função 'g' (funções não enxergam as variáveis do programa principal)

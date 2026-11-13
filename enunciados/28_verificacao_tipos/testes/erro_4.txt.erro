@@ -1,0 +1,1 @@
+Erro semântico [2:5]: tipos incompatíveis na atribuição a 'b': esperado bool, encontrado int

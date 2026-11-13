@@ -1,0 +1,2 @@
+func float h() { return 1.5; }
+int y = h();

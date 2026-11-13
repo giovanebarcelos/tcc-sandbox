@@ -1,0 +1,7 @@
+soma = 0;
+do [i = 1; i <= 3; i++] {
+    do [j = 1; j <= 3; j++] out(i * j);
+    soma = soma + i;
+}
+out(soma);
+do [k = 10; k > 0; k -= 3] out(k)

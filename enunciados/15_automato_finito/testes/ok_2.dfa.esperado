@@ -1,0 +1,13 @@
+AFD 'EvenAs': 3 estado(s), alfabeto [a, b], inicial par, finais [par]
+  δ         a       b       
+→*par       impar   par     
+  impar     par     impar   
+  lixo      lixo    -       
+Aviso: estado 'lixo' inalcançável
+Aviso: AFD parcial (1 transição(ões) ausente(s) = rejeição)
+Simulação:
+  ε          ACEITA    par
+  aa         ACEITA    par → impar → par
+  aba        ACEITA    par → impar → impar → par
+  bbbab      REJEITA   par → par → par → par → impar → impar
+Arquivo JFLAP gravado em build/out/ok_2.dfa.jff  (abra com ferramentas/jflap.sh)

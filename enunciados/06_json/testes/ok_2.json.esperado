@@ -1,0 +1,23 @@
+{
+  "aluno": {
+    "nome": "Dick Vigarista",
+    "ra": null,
+    "notas": [],
+    "endereco": {}
+  },
+  "turmas": [
+    {
+      "id": 1,
+      "tags": [
+        "tcc",
+        "6M"
+      ]
+    },
+    {
+      "id": 2,
+      "media": -7.5e-1
+    }
+  ],
+  "escape": "linha\n\"aspas\""
+}
+Estatísticas: {objeto=5, array=3, STRING=4, NUMBER=3, BOOL=0, NULL=1}, profundidade máxima = 4

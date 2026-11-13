@@ -1,0 +1,22 @@
+// funções recursivas, laços e conversão int -> float
+func int fat(int n) {
+    if (n <= 1) { return 1; }
+    return n * fat(n - 1);
+}
+func float media(float a, float b) {
+    return (a + b) / 2.0;
+}
+func int mdc(int a, int b) {
+    while (b != 0) { int r = a % b; a = b; b = r; }
+    return a;
+}
+int i = 1;
+while (i <= 6) {
+    print("fat(", i, ") =", fat(i));
+    i = i + 1;
+}
+float m = media(7, 8.5);
+print("média(7, 8.5) =", m);
+print("mdc(84, 36) =", mdc(84, 36));
+
+print("100% ok:", fat(3));

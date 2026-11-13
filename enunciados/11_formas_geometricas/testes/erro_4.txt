@@ -1,0 +1,2 @@
+shape a: square { side: 1 }
+shape a: circle { radius: 2 }

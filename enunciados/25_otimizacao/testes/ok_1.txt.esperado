@@ -1,0 +1,17 @@
+=== Original (26 nós) ===
+    x = ((2 * 3) + 4);
+    y = ((x * 1) + 0);
+    z = ((y - 5) * (x / 2));
+    print(z);
+=== Otimizado (12 nós) ===
+    x = 10;
+    y = 10;
+    z = 25;
+    print(25);
+=== Otimizações aplicadas ===
+  7× dobramento de constantes
+  4× propagação de constante
+=== Execução ===
+  original : saída [25] (7 operações)
+  otimizado: saída [25] (0 operações)
+  saídas idênticas? sim

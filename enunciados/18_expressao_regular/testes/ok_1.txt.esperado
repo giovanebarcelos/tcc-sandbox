@@ -1,0 +1,25 @@
+ER 1: (a|b)*abb   →  AFN-ε de Thompson: 14 estados, 16 transições, alfabeto [a, b]
+  abb        ACEITA
+  aabb       ACEITA
+  babb       ACEITA
+  ab         REJEITA
+  abba       REJEITA
+  ε          REJEITA
+ER 2: a+b?c*   →  AFN-ε de Thompson: 12 estados, 15 transições, alfabeto [a, b, c]
+  a          ACEITA
+  aaab       ACEITA
+  abccc      ACEITA
+  b          REJEITA
+  ac         ACEITA
+  aabcb      REJEITA
+ER 3: (0|1(01*0)*1)*   →  AFN-ε de Thompson: 20 estados, 26 transições, alfabeto [0, 1]
+  0          ACEITA
+  11         ACEITA
+  110        ACEITA
+  1001       ACEITA
+  111        REJEITA
+  10         REJEITA
+ER 4: (ε|ab)   →  AFN-ε de Thompson: 8 estados, 8 transições, alfabeto [a, b]
+  ε          ACEITA
+  ab         ACEITA
+  a          REJEITA

@@ -1,0 +1,5 @@
+a = 1;
+b = a # 2;             // '#' inválido: descartado pelo scanner, mas sobra "a 2"
+print a + 1;
+c = a @ ;              // '@' descartado; depois falta o operando
+print a * 3;
